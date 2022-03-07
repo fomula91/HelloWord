@@ -14,7 +14,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
-    <title>Hello Word</title>
+    <title>인생 버킷리스트</title>
 
     <style>
         * {
@@ -83,12 +83,88 @@
         }
     </style>
     <script>
+        $(document).ready(function () {
+            show_bucket();
+        });
 
+        function show_bucket() {
+            $.ajax({
+                type: "GET",
+                url: "/bucket",
+                data: {},
+                success: function (response) {
+                    let rows = response['buckets']
+                    for (let i = 0; i < rows.length; i++) {
+                        let bucket = rows[i]['bucket']
+                        let num = rows[i]['num']
+                        let done = rows[i]['done']
+
+                        let temp_html = `
+                        `
+
+                        if (done == 0) {
+                            temp_html = `
+    <li>
+        <h2>${bucket}</h2>
+        <button onclick="done_bucket(${num})" type="button" class="btn btn-outline-primary">완료!</button>
+    </li>
+                            `
+                        } else {
+                            temp_html = `
+    <li>
+        <h2 class="done">✅ ${bucket}</h2>
+    </li>
+                            `
+                        }
+
+                        $('#bucket-list').append(temp_html)
+
+                    }
+                    console.log(response['buckets'])
+
+                }
+            });
+        }
+
+        function save_bucket() {
+            let bucket = $('#bucket').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/bucket",
+                data: {bucket_give: bucket},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+
+        function done_bucket(num) {
+            $.ajax({
+                type: "POST",
+                url: "/bucket/done",
+                data: {num_give: num},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
     </script>
 </head>
 <body>
-<div>
-    <h1>hello word</h1>
+<div class="mypic">
+    <h1>나의 버킷리스트</h1>
+</div>
+<div class="mybox">
+    <div class="mybucket">
+        <input id="bucket" class="form-control" type="text" placeholder="이루고 싶은 것을 입력하세요">
+        <button onclick="save_bucket()" type="button" class="btn btn-outline-primary">기록하기</button>
+    </div>
+</div>
+<div class="mybox" id="bucket-list">
+
 </div>
 </body>
 </html>
