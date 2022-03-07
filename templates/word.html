@@ -2,17 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
-          id="bootstrap-css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
-    <title>Hello Word</title>
-
-
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <style>
         /****** LOGIN MODAL ******/
         .loginmodal-container {
@@ -109,44 +102,70 @@
             font-size: 12px;
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            $('[id^=detail-]').hide();
+            $('.toggle').click(function () {
+                $input = $(this);
+                $target = $('#' + $input.attr('data-toggle'));
+                $target.slideToggle();
+            });
+        });
+    </script>
+
+    <title>Hello Word</title>
 </head>
 <body>
 
-
-<a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
-
+<a href="#" data-toggle="modal" data-target="#login-modal">단어 추가</a>
+<a href="/api/logout" class="btn btn-danger">로그아웃</a>
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
      style="display: none;">
     <div class="modal-dialog">
         <div class="loginmodal-container">
-            <h1>Login to Your Account</h1><br>
-            <form action="/api/login" method="post">
-                <input type="text" name="id" placeholder="Username">
-                <input type="password" name="pw" placeholder="Password">
-                <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+            <h1>단어 추가하기</h1><br>
+            <form action="/api/words" method="POST">
+                <input type="text" name="word" placeholder="단어">
+                <input type="text" name="mean" placeholder="의미">
+                <input type="submit" name="submit" class="login loginmodal-submit" value="추가하기">
             </form>
-
-            <div class="login-help">
-                <a href="#" data-toggle="modal" data-target="#register-modal">Register</a>
-            </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-     style="display: none;">
-    <div class="modal-dialog">
-        <div class="loginmodal-container">
-            <h1>Register Account</h1><br>
-            <form action="/api/signup" method="post">
-                <input type="text" name="id" placeholder="Username">
-                <input type="password" name="pw" placeholder="Password">
-                <input type="password" name="confirm" placeholder="Confirm Password">
-                <input type="submit" name="login" class="login loginmodal-submit" value="Register">
-            </form>
-
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Panel List Group with Expandable Setail Section</h3>
         </div>
+        <ul class="list-group">
+            {% for word in words %}
+            <li class="list-group-item">
+                <div class="row toggle" id="dropdown-detail-{{ loop.index }}" data-toggle="detail-{{ loop.index }}">
+                    <div class="col-xs-10">
+                        {{word['word']}}
+                    </div>
+                    <div class="col-xs-2"><i class="fa fa-chevron-down pull-right"></i></div>
+                </div>
+                <div id="detail-{{ loop.index }}">
+                    <hr></hr>
+                    <div class="container">
+                        <div class="fluid-row">
+                            <div class="col-xs-1">
+                                뜻 :
+                            </div>
+                            <div class="col-xs-5">
+                                {{word['mean']}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
+
 </body>
 </html>
