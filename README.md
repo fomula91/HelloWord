@@ -21,9 +21,11 @@
 
 ## 3. API
 
-| 기능     | Method | URL         | request                                      | response                                                     |
-| -------- | ------ | ----------- | -------------------------------------------- | ------------------------------------------------------------ |
-| 로그인   | POST   | /api/login  | { id: String, passwd: String }               | { ok: Boolean,  message?: String}                            |
-| 회원가입 | POST   | /api/signup | { id: String, name: String, passwd: String } | { ok: Boolean,  message?: String}                            |
-| 단어목록 | GET    | /api/words  | ?done=true/false<br>?star=true/false         | { rows: Array({ id: String, word: String, mean: String, done: Boolean, star: Boolean }) } |
-| (추가)   |        |             |                                              |                                                              |
+| 기능     | Method | URL                | request                                                      | response                                                     |
+| -------- | ------ | ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 로그인   | POST   | /api/login         | { id: String, passwd: String }                               | { ok: Boolean,  message?: String}                            |
+| 회원가입 | POST   | /api/signup        | params = { id: String, name: String, passwd: String }        | { ok: Boolean,  message?: String}                            |
+| 단어목록 | GET    | /api/words/:params | params = { done: Boolean, star: Boolean }                    | { rows: Array({ id: String, word: String, mean: String, done: Boolean, star: Boolean }) } |
+| 단어추가 | POST   | /api/words         | { word: String, mean: String, done: Boolean, star: Boolean } | { ok: Boolean,  message?: String}                            |
+| 단어수정 | PUT    | /api/words/:params | params = { id: String }<br>body = { done?: Boolean, star?: Boolean, word?: String, mean: String } | { ok: Boolean,  message?: String}                            |
+| 단어삭제 | DELETE | /api/words/:params | params = { id: String }                                      | { ok: Boolean,  message?: String}                            |
