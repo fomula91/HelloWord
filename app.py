@@ -5,7 +5,7 @@ app = Flask(__name__)
 from pymongo import MongoClient
 import certifi
 certifi = certifi.where()
-client = MongoClient('mongodb+srv://test:sparta@cluster0.blw69.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('url입력')
 db = client.dbsparta
 
 
@@ -14,42 +14,35 @@ def home():
     return render_template('index.html')
 
 
-@app.route("/bucket", methods=["POST"])
-def bucket_post():
-    bucket_receive = request.form['bucket_give']
-
-    bucket_list = list(db.bucket.find({}, {'_id': False}))
-    count = len(bucket_list) + 1
-    doc = {
-        'num':count,
-        'bucket': bucket_receive,
-        'done': 0
-    }
-
-    db.bucket.insert_one(doc);
-    return jsonify({'msg': '등록 완료!'})
+@app.route("/api/login", methods=["POST"])
+def login():
+    #로그인
+    return jsonify({'msg':''})
 
 
 
-@app.route("/bucket/done", methods=["POST"])
-def bucket_done():
-    num_receive = request.form['num_give']
-    db.bucket.update_one({'num': int(num_receive)}, {'$set': {'done': 1}})
-    return jsonify({'msg': '버킷 완료!'})
+@app.route("/api/signup", methods=["POST"])
+def signup():
+    #회원가입
+    return jsonify({'msg': ''})
 
-@app.route("/bucket/del", methods=["POST"])
-def bucket_del():
-    num_receive = request.form['num_give']
-    db.bucket.update_one({'num': int(num_receive)}, {'$set': {'done': 0}})
-    return jsonify({'msg': '버킷 취소!'})
+@app.route("/api/words/:para", methods=["GET"])
+def word_list():
+    #단어목록
+    return jsonify({'msg': ''})
 
+@app.route("/api/words/", methods=["POST"])
+def init_word():
+    #단어추가
+    return
+@app.route("/api/words/:para", methods=["POST"])
+def edit_word():
+    #단어수정
+    return
 
-
-
-@app.route("/bucket", methods=["GET"])
-def bucket_get():
-    bucket_list = list(db.bucket.find({}, {'_id': False}))
-    return jsonify({'buckets': bucket_list})
-
+@app.route("/api/words/:para", methods=["POST"])
+def delete_word():
+    #단어삭제
+    return
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)
