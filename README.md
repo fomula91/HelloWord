@@ -1,27 +1,48 @@
 # [항해99 Chapter #1] 1조 S.A(Starting Assignment)
 
-# 프로젝트 개요
+# 개요
 
-- 프로젝트명 : Hello Word
-- 내용 : 코딩도 중요하지만, 개발자의 문서는 대부분 영어로 되어 있기에 영어 공부도 빠뜨릴 수 없죠! 간단하게 영어 단어를 암기할 수 있는 나만의 단어장입니다.
+### 프로젝트
+
+- 프로젝트명 : `Hello Word`
+- 내용 : 코딩도 중요하지만, 개발자의 문서는 대부분 영어로 되어 있기에 영어 공부도 빠뜨릴 수 없다. 따라서, 간단하게 영어 단어를 암기할 수 있는 `나만의 단어장` 개발을 프로젝트 주제로 선정하였다.
+
+### 목표
+
+- 기본적인 웹개발 지식을 갖춘다(좁은 범위의 주제로 선정).
+- 팀으로 하나되어 서비스를 완성하는 경험을 쌓는다.
+
+- jinja2 템플릿 엔진을 이용한 서버사이드 렌더링을 구현하고, 장점을 파악한다.
+- JWT 인증 방식으로 로그인 기능을 구현하고, 세션/쿠키 방식과의 차이점 및 장단점을 파악한다.
+
+### 팀원
+
+- 최원영(팀장) : https://github.com/choewy
+- 하상우 : https://github.com/
+- 홍승민 : https://github.com/smhong
+- 김형중 : https://github.com/fomula91
+
+### Repository
+
+- https://github.com/fomula91/HelloWord/
 
 # 와이어 프레임
 
-## 로그인 페이지
+### 로그인 페이지
 
 ![1.png](images/1.PNG)
 
-## 회원가입 페이지
+### 회원가입 페이지
 
 ![2.png](images/2.png)
 
-## 단어 리스트 페이지
+### 단어 리스트 페이지
 
 ![3.png](images/3.png)
 
 # API
 
-## 로그인 : POST	/api/login
+### 로그인 : POST	/api/login
 
 ```js
 const callback = {
@@ -45,7 +66,7 @@ const callback = {
 };
 ```
 
-## 회원가입 : POST	/api/signup
+### 회원가입 : POST	/api/signup
 
 ```js
 const callback = {
@@ -65,7 +86,7 @@ const callback = {
 };
 ```
 
-## 로그아웃 : POST	/api/logout
+### 로그아웃 : POST	/api/logout
 
 ```js
 const callback = {
@@ -83,7 +104,7 @@ const callback = {
 };
 ```
 
-## 단어목록 조회 : GET	/api/words/:params
+### 단어목록 조회 : GET	/api/words/:params
 
 ```js
 const callback = {
@@ -113,7 +134,7 @@ const callback = {
 };
 ```
 
-## 단어 추가 : POST	/api/words
+### 단어 추가 : POST	/api/words
 
 ```js
 const callback = {
@@ -137,7 +158,7 @@ const callback = {
 };
 ```
 
-## 단어 수정 : PUT	/api/words/:params
+### 단어 수정 : PUT	/api/words/:params
 
 ```js
 const callback = {
@@ -164,7 +185,7 @@ const callback = {
 };
 ```
 
-## 단어 삭제 : DELETE	/api/words/:params
+### 단어 삭제 : DELETE	/api/words/:params
 
 ```js
 const callback = {
@@ -184,19 +205,3 @@ const callback = {
     }
 };
 ```
-
-# 필수조건
-
-- jinja2 템플릿 엔진을 이용한 서버사이드 렌더링 적용 : 장점 파악
-- JWT 인증 방식 로그인 기능 구현 : 세션/쿠키 방식과의 차이점 및 장단점 파악
-
-# Git Repo
-
-- https://github.com/fomula91/HelloWord/tree/main
-
-# 팀원
-
-- 최원영(팀장) : https://github.com/choewy
-- 하상우 : https://github.com/
-- 홍승민 : https://github.com/
-- 김형중 : https://github.com/fomula91
