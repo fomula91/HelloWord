@@ -1,29 +1,25 @@
-# [항해99 Chapter #1] 1조 S.A(Starting Assignment)
+# 항해99 Chapter 1 - 팀별 미니 프로젝트(1조)
 
-## 1. 프로젝트 개요
+## S.A(Starting Assignment)
 
-- 프로젝트명 : Hello Word
-- 내용 : 코딩도 중요하지만, 개발자의 문서는 대부분 영어로 되어 있기에 영어 공부도 빠뜨릴 수 없죠! 간단하게 어 단어를 암기할 수 있는 나만의 단어장입니다.
+- [https://choewy.tistory.com/125](https://choewy.tistory.com/125)
 
-## 2. 와이어 프레임
+## 의존성 패키지
 
-- **로그인 페이지**
+- flask
+- pymongo
+- PyJWT
 
-![1.png](images/1.png)
+## 이슈 사항
 
-- **회원가입 페이지**
+### pymongo 설치 후 bson과의 충돌 이슈 발생
 
-![2.png](images/2.png)
+파이썬 3.7 이상인 경우 bson 기능을 지원하는데, 이때 pymongo의 bson과 충돌 발생
 
-- **단어 리스트 페이지**
+따라서, bson과 pymongo를 지운 후 다시 pymongo를 설치하여 해결
 
-![3.png](images/3.png)
-
-## 3. API
-
-| 기능     | Method | URL         | request                                      | response                                                     |
-| -------- | ------ | ----------- | -------------------------------------------- | ------------------------------------------------------------ |
-| 로그인   | POST   | /api/login  | { id: String, passwd: String }               | { ok: Boolean,  message?: String}                            |
-| 회원가입 | POST   | /api/signup | { id: String, name: String, passwd: String } | { ok: Boolean,  message?: String}                            |
-| 단어목록 | GET    | /api/words  | ?done=true/false<br>?star=true/false         | { rows: Array({ id: String, word: String, mean: String, done: Boolean, star: Boolean }) } |
-| (추가)   |        |             |                                              |                                                              |
+```
+$ pip uninstall bson
+$ pip uninstall pymongo
+$ pip install pymongo
+```

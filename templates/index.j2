@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <title>Hello Word | 메인 페이지</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap");
+    </style>
+    <script defer>
+
+        {% if message %}
+            alert("{{ message }}")
+        {% endif %}
+
+        const login = () => {
+            const id = $("#login-id").val();
+            const passwd = $("#login-passwd").val();
+
+            if (id === "") return alert("아이디를 입력하세요!");
+            if (passwd === "") return alert("비밀번호를 입력하세요!");
+
+            $.ajax({
+                type: "POST",
+                url: '/api/login',
+                data: {id, passwd},
+                success: (res) => {
+                    const {ok, message, token} = res;
+
+                    if (!ok) return alert(message);
+                    console.log(token);
+                    $.cookie('hello-token', token, {path: '/'});
+                    alert("환영합니다!");
+                    return window.location.replace('/mywords')
+                }
+            });
+        };
+
+        const signup = () => {
+            const id = $("#signup-id").val();
+            const name = $("#signup-name").val();
+            const passwd = $("#signup-passwd").val();
+            const passwdConfirm = $("#signup-passwd-confirm").val();
+
+            console.log(id, name, passwd)
+
+            if (id === "") return alert("아이디를 입력하세요!");
+            if (name === "") return alert("이름을 입력하세요!");
+            if (passwd === "") return alert("비밀번호를 입력하세요!");
+            if (passwd !== passwdConfirm) return alert("비밀번호가 일치하지 않습니다!");
+
+            $.ajax({
+                type: "POST",
+                url: '/api/signup',
+                data: {id, passwd, name},
+                success: (res) => {
+                    const {ok, message} = res;
+                    if (!ok) return alert(message);
+                    return alert("회원가입이 완료되었습니다!");
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="title">
+            <h1>Hello Word!</h1>
+        </div>
+        <div>
+            <div>
+                <div>
+                    <input id="login-id" type="text" autocomplete="off" placeholder="아이디"/>
+                </div>
+                <div>
+                    <input id="login-passwd" type="password" placeholder="비밀번호"/>
+                </div>
+                <div>
+                    <button onclick="login()">로그인</button>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <input id="signup-id" type="text" autocomplete="off" placeholder="아이디"/>
+                </div>
+                <div>
+                    <input id="signup-name" type="text" autocomplete="off" placeholder="이름"/>
+                </div>
+                <div>
+                    <input id="signup-passwd" type="password" placeholder="비밀번호"/>
+                </div>
+                <div>
+                    <input id="signup-passwd-confirm" type="password" placeholder="비밀번호 확인"/>
+                </div>
+                <div>
+                    <button onclick="signup()">로그인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
