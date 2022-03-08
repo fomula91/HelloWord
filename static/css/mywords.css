@@ -46,18 +46,19 @@
 .word-icons{
     width: 100px;
     line-height: 1px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 0 0 10px;
 
 }
 .word-texts {
     width: 100%;
     display: flex;
     flex-direction: row;
-    padding: 5px 0;
-}
-
-.word-word,
-.word-mean {
-    width: 100%;
+    padding: 10px 0;
+    border: none;
 }
 
 .word-buttons {
@@ -67,4 +68,35 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    margin: 0 10px 0;
+}
+
+.word-span-box,
+.word-input-box {
+    width: 100%;
+    height: 35px;
+    margin: 0 10px;
+}
+
+.word-span-box {
+    padding: 5px 10px;
+}
+
+.word-input-box > input {
+    width: 100%;
+    font-size: 1rem;
+    border: 1px solid #00D1B2;
+    border-radius: 2em;
+    padding: 5px 9px;
+
+}
+
+#words-box {
+    height: 520px;
+    overflow-y: scroll;
+}
+
+body::-webkit-scrollbar,
+#words-box::-webkit-scrollbar {
+    display: none;
 }
