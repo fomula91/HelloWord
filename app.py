@@ -24,19 +24,17 @@ db = client.dbsparta
 # 토근 유효성 체크를 위해 따로 함수로 분할
 def check_token(req) -> dict:
     token = req.cookies.get('hello-token')
-    res = {}
+
     try:
         payload = jwt.decode(token, secret_key, algorithms='HS256')
         user = db.users.find_one({'user_id': payload["user_id"]})
 
         if not user:
-            res["ok"] = False
-            res["message"] = "사용자 정보를 찾을 수 없습니다."
+            message = "사용자 정보를 찾을 수 없습니다."
+            return {"ok": False, "message": message}
 
-        res["ok"] = True
-        res["user_id"] = user["user_id"]
-
-        return res
+        user_id = user["user_id"]
+        return {"ok": True, "user_id": user_id}
     except jwt.ExpiredSignatureError:
         return {"ok": False, "message": "토큰이 만료되었습니다."}
     except jwt.exceptions.DecodeError:
