@@ -11,33 +11,13 @@ from datetime import datetime, timedelta
 
 config = configparser.ConfigParser()
 config.read(os.getcwd() + os.sep + 'config.ini', encoding='utf-8')
-
-# (주석) 최원영 - config 파일 없음
-# ------------
 secret_key = config['FLASK_SECRET_KEY']['KEY']
-# ------------
-
 ca = certifi.where()
-
-# (주석) 최원영 - config 파일 없음
-# ------------
-client = MongoClient(config['DB_CONFIG']['HOST'], tlsCAFile=ca)
-# ------------
-
-# (임시) 추가
-# ------------
-# client = MongoClient("mongodb://root:password@146.56.187.171:27010")
-db = client.dbsparta
-# ------------
-
-
-# (임시) 추가
-# ------------
-# secret_key = "SpartaCodingClubHanghae99"
-# ------------
 
 app = Flask(__name__)
 app.secret_key = secret_key
+client = MongoClient(config['DB_CONFIG']['HOST'], tlsCAFile=ca)
+db = client.dbsparta
 
 
 # (추가) 최원영
