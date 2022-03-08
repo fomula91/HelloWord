@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from utils.mongo import MongoDB
 from datetime import datetime, timedelta
@@ -9,7 +8,6 @@ JWT_SECRET = "HangHae99Chapter1MiniProject"
 
 app = Flask(__name__)
 mongo = MongoDB()
-
 
 
 @app.route('/')

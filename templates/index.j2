@@ -2,104 +2,146 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheatsheet Concept</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon.png">
+
+    <!-- Bulma Version 0.9.0-->
+    <link rel='stylesheet' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css'>
+    <link rel='stylesheet' href="../css/prism.css">
+    <link rel="stylesheet" href="../css/cheatsheet.css">
+    <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gugi&display=swap" rel="stylesheet">
+
+    <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <title>Hello Word | 메인 페이지</title>
-    <style>
-        @import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap");
-    </style>
-    <script defer>
-
-        {% if message %}
-            alert("{{ message }}")
-        {% endif %}
-
-        const login = () => {
-            const id = $("#login-id").val();
-            const passwd = $("#login-passwd").val();
-
-            if (id === "") return alert("아이디를 입력하세요!");
-            if (passwd === "") return alert("비밀번호를 입력하세요!");
-
-            $.ajax({
-                type: "POST",
-                url: '/api/login',
-                data: {id, passwd},
-                success: (res) => {
-                    const {ok, message, token} = res;
-
-                    if (!ok) return alert(message);
-                    console.log(token);
-                    $.cookie('hello-token', token, {path: '/'});
-                    alert("환영합니다!");
-                    return window.location.replace('/mywords')
-                }
-            });
-        };
-
-        const signup = () => {
-            const id = $("#signup-id").val();
-            const name = $("#signup-name").val();
-            const passwd = $("#signup-passwd").val();
-            const passwdConfirm = $("#signup-passwd-confirm").val();
-
-            console.log(id, name, passwd)
-
-            if (id === "") return alert("아이디를 입력하세요!");
-            if (name === "") return alert("이름을 입력하세요!");
-            if (passwd === "") return alert("비밀번호를 입력하세요!");
-            if (passwd !== passwdConfirm) return alert("비밀번호가 일치하지 않습니다!");
-
-            $.ajax({
-                type: "POST",
-                url: '/api/signup',
-                data: {id, passwd, name},
-                success: (res) => {
-                    const {ok, message} = res;
-                    if (!ok) return alert(message);
-                    return alert("회원가입이 완료되었습니다!");
-                }
-            });
-        };
-    </script>
 </head>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
+<style>
+    .font-size2 {
+        font-size: 100px;
+        font-family: 'East Sea Dokdo', cursive;
+        font-family: 'Gugi', cursive;
+    }
+    .text-btn {
+        cursor: pointer;
+    }
+
+</style>
+<script defer>
+    $(document).ready(() => {
+        $("#signup-form-box").hide();
+    })
+
+    const goSignup = () => {
+        $("#login-form-box").hide();
+        $("#signup-form-box").show();
+    }
+
+    const goLogin = () => {
+        $("#signup-form-box").hide();
+        $("#login-form-box").show();
+    }
+</script>
 <body>
-    <div class="wrapper">
-        <div class="title">
-            <h1>Hello Word!</h1>
-        </div>
-        <div>
-            <div>
-                <div>
-                    <input id="login-id" type="text" autocomplete="off" placeholder="아이디"/>
-                </div>
-                <div>
-                    <input id="login-passwd" type="password" placeholder="비밀번호"/>
-                </div>
-                <div>
-                    <button onclick="login()">로그인</button>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <input id="signup-id" type="text" autocomplete="off" placeholder="아이디"/>
-                </div>
-                <div>
-                    <input id="signup-name" type="text" autocomplete="off" placeholder="이름"/>
-                </div>
-                <div>
-                    <input id="signup-passwd" type="password" placeholder="비밀번호"/>
-                </div>
-                <div>
-                    <input id="signup-passwd-confirm" type="password" placeholder="비밀번호 확인"/>
-                </div>
-                <div>
-                    <button onclick="signup()">로그인</button>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="columns">
+            <div class="column is-12">
+                <div class="container content is-grouped">
+                    <i class="is-large fab fa-github is-pulled-left"></i>
+                    <p class="title font-size2 ">
+                <span>
+                  hello word
+                </span>
+                        <a href="https://github.com/BulmaTemplates/bulma-templates" target="_blank"
+                           class="button is-primary is-large is-pulled-right">
+                            <span>Github</span>
+                        </a>
+                    </p>
+
                 </div>
             </div>
         </div>
     </div>
+</section>
+<section class="hero is-halfheight">
+    <div class="hero-body column is-offset-5 has-text-centered">
+        <div id="login-form-box" class="login box is-1">
+            <div>
+                <div class="field">
+                    <div class="control">
+                        <input id="login-id" class="input is-medium is-rounded" type="text" placeholder="아이디"
+                               autocomplete="off">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input id="login-passwd" class="input is-medium is-rounded" type="password" placeholder="비밀번호"
+                               autocomplete="off">
+                    </div>
+                </div>
+                <br>
+                <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit">
+                    로그인
+                </button>
+            </div>
+            <br>
+            <nav class="level">
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="text-btn" onclick="goSignup()">계정이 없으신가요?</p>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="signup-form-box" class="login box is-1">
+            <div>
+                <div class="field">
+                    <div class="control">
+                        <input id="signup-id" class="input is-medium is-rounded" type="text" placeholder="아이디"
+                               autocomplete="off" required="">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input id="signup-name" class="input is-medium is-rounded" type="text" placeholder="이름"
+                               autocomplete="off" required="">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input id="signup-passwd" class="input is-medium is-rounded" type="password" placeholder="비밀번호"
+                               autocomplete="off" required="">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input id="signup-passwd-confirm" class="input is-medium is-rounded" type="password" placeholder="비밀번호 확인"
+                               autocomplete="off" required="">
+                    </div>
+                </div>
+                <br>
+                <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit">
+                    회원가입
+                </button>
+            </div>
+            <br>
+            <nav class="level">
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="text-btn" onclick="goLogin()">이미 계정이 있으신가요?</p>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</section>
+</div>
+</section>
+
+
 </body>
 </html>
