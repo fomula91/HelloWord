@@ -4,7 +4,6 @@
 
 const checkAuthentication = () => {
     const token = $.cookie('hello-token');
-    console.log(token);
     if (!token) return location.reload();
 };
 
