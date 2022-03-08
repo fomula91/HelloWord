@@ -1,4 +1,4 @@
-/* <최원영> https://choewy.github.com */
+/* 최원영 */
 
 .section {
     display: flex;
@@ -6,13 +6,16 @@
     align-items: center;
     justify-content: center;
 }
+
 .words-list-title {
     text-align: center;
 }
+
 .words-list {
     width: 100%;
     max-width: 900px;
 }
+
 .word-inputs {
     display: flex;
     flex-direction: row;
@@ -25,26 +28,28 @@
 .word-inputs > button{
     margin: 0 5px;
 }
+
 .word-inputs button {
     display: inline-block;
 }
-.modal-content {
-    top: 50%;
-}
+
 .icon-btn-right {
     margin: 0 20px 0 0;
     cursor: pointer;
 }
+
 .icon-btn-left {
     margin: 0 0 0 20px;
     cursor: pointer;
 }
+
 .panel-block {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
 }
+
 .word-icons{
     width: 100px;
     line-height: 1px;
@@ -55,6 +60,7 @@
     margin: 0 0 0 10px;
 
 }
+
 .word-texts {
     width: 100%;
     display: flex;
@@ -98,7 +104,6 @@
     overflow-y: scroll;
 }
 
-body::-webkit-scrollbar,
 #words-box::-webkit-scrollbar {
     display: none;
 }

@@ -1,6 +1,11 @@
 'use strict';
 
-/* <최원영> https://choewy.github.com */
+/* 최원영 */
+
+const logout = () => {
+    $.removeCookie('hello-token');
+    location.replace('/');
+};
 
 const wordsRender = (words) => {
     const wordsBox = $('#words-box');
@@ -189,11 +194,6 @@ const wordSaveClick = (word_id) => {
     alert("저장되었습니다.");
     // location.reload();
 }
-
-const modalClose = () => {
-    $('#word-modal-content').empty();
-    $('#word-modal').hide();
-};
 
 $(document).ready(() => {
     filterRender();

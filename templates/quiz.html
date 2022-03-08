@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Hello word</title>
@@ -13,9 +13,11 @@
     <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gugi&display=swap" rel="stylesheet">
 
-
     <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
+
+    <!-- (추가) 최원영 : 커스터마이징 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
         .input-box {
             max-width: 550px;
@@ -35,8 +37,8 @@
     </style>
     <script>
         function logout() {
-            $.removeCookie('mytoken')
-            window.location.href = '/'
+            $.removeCookie('hello-token');
+            location.replace('/');
         }
     </script>
     <style>
@@ -194,19 +196,77 @@
 </head>
 
 <body>
+
+<!-- (추가) 최원영 : 상단 네이게이션 -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://hanghae99.spartacodingclub.kr/?utm_source=google_sa&utm_medium=paid&utm_campaign=15140556153&utm_content=129341608796&utm_term=%ED%95%AD%ED%95%B499_558314615957&gclid=Cj0KCQiAmpyRBhC-ARIsABs2EArVF6Ree0Z3qIrXLE3jeEaeuP4Dq5U-joTn14vqtoSuuI_hKMO_CowaAjZ8EALw_wcB">
+      <img src="https://hanghae99.spartacodingclub.kr/static/images/logo.svg" width="95" height="28">
+    </a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/">
+        홈
+      </a>
+      <a class="navbar-item" href="/mywords">
+        나만의 단어장
+      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          더보기
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://github.com/choewy">
+              GitHub - 최원영
+          </a>
+          <a class="navbar-item" href="https://github.com/voyager16">
+              GitHub - 하상우
+          </a>
+          <a class="navbar-item" href="https://github.com/smhong">
+              GitHub - 홍승민
+          </a>
+          <a class="navbar-item" href="https://github.com/fomula91">
+              GitHub - 김형중
+          </a>
+          <hr class="navbar-divider">
+              <a class="navbar-item" href="https://github.com/fomula91/HelloWord">
+                GitHub Repository
+              </a>
+              <a class="navbar-item" href="https://choewy.tistory.com/125">
+                S.A(Start Assignment)
+              </a>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button" onclick="logout()">
+            <strong>로그아웃</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
 <section class="hero is-primary">
     <div class="hero-body">
         <div class="columns">
             <div class="column is-12">
                 <div class="container content is-grouped">
                     <i class="is-large fab fa-github is-pulled-left"></i>
-                    <p class="title font-size2">
-                <span>
-                  hello world
-                </span>
-                        <button onclick="logout()" class="button is-danger is-large is-pulled-right">로그아웃</button>
+                    <p class="title font-size2" style="font-size: 75px; font-family: 'Gugi', cursive;">
+                    <span>
+                      hello words
+                    </span>
                     </p>
-
                 </div>
             </div>
         </div>
@@ -214,82 +274,49 @@
 </section>
 <section class="section">
     <div class="container">
-        <div class="columns">
-            <div class="column is-2">
-                <aside class="is-medium menu">
-
-                    <ul class="menu-list">
-                        <button onclick="location.href='/mywords'"
-                                class="button is-medium is-info is-rounded sub-menu-button">전체 단어
-                        </button>
-                        <button onclick="location.href='/favorite'"
-                                class="button is-medium is-info is-rounded sub-menu-button">나만의 단어
-                        </button>
-                        <button onclick="location.href='/quiz'"
-                                class="button is-medium is-info is-rounded sub-menu-button">퀴즈 풀기
-                        </button>
-                    </ul>
-                </aside>
-            </div>
+        <div class="columns" style="justify-content: center;">
             <div class="column is-10">
-                <div class="content is-medium">
-                    <div class="box">
-                        <div class="field is-grouped">
-                            <p class="control is-expanded">
-                                <input class="input" type="text" placeholder="input">
-                            </p>
-                            <p class="control">
-                                <a class="button is-info">
-                                    add
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                    <section class="container">
-                        <div class="wrapper">
-                            <div class="poster">
-                                <div class="cardContainer">
-                                    <div class="red">WORD</div>
-                                    <div class="pink">MEAN</div>
-                                </div>
-                                <div class="cardContainer">
-                                    <div class="red">WORD</div>
-                                    <div class="pink">MEAN</div>
-                                </div>
-                                <div class="cardContainer">
-                                    <div class="red">WORD</div>
-                                    <div class="pink">MEAN</div>
-                                </div>
-                                <div class="cardContainer">
-                                    <div class="red">WORD</div>
-                                    <div class="pink">MEAN</div>
-                                </div>
-                                <div class="cardContainer">
-                                    <div class="red">WORD</div>
-                                    <div class="pink">MEAN</div>
-                                </div>
-                                <div class="cardContainer">
-                                    <div class="red">WORD</div>
-                                    <div class="pink">MEAN</div>
-                                </div>
-                                <div class="cardContainer">
-                                    <div class="red">WORD</div>
-                                    <div class="pink">MEAN</div>
-                                </div>
-                                <div class="cardContainer">
-                                    <div class="red">WORD</div>
-                                    <div class="pink">MEAN</div>
-                                </div>
+                <section class="container">
+                    <div class="wrapper">
+                        <div class="poster">
+                            <div class="cardContainer">
+                                <div class="red">WORD</div>
+                                <div class="pink">MEAN</div>
+                            </div>
+                            <div class="cardContainer">
+                                <div class="red">WORD</div>
+                                <div class="pink">MEAN</div>
+                            </div>
+                            <div class="cardContainer">
+                                <div class="red">WORD</div>
+                                <div class="pink">MEAN</div>
+                            </div>
+                            <div class="cardContainer">
+                                <div class="red">WORD</div>
+                                <div class="pink">MEAN</div>
+                            </div>
+                            <div class="cardContainer">
+                                <div class="red">WORD</div>
+                                <div class="pink">MEAN</div>
+                            </div>
+                            <div class="cardContainer">
+                                <div class="red">WORD</div>
+                                <div class="pink">MEAN</div>
+                            </div>
+                            <div class="cardContainer">
+                                <div class="red">WORD</div>
+                                <div class="pink">MEAN</div>
+                            </div>
+                            <div class="cardContainer">
+                                <div class="red">WORD</div>
+                                <div class="pink">MEAN</div>
                             </div>
                         </div>
-                    </section>
-                </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
-
 </section>
-
-
 </body>
 </html>

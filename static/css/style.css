@@ -1,0 +1,5 @@
+/* 최원영 */
+
+body::-webkit-scrollbar {
+    display: none;
+}
