@@ -1,3 +1,7 @@
+'use strict';
+
+/* <최원영> https://choewy.github.com */
+
 const wordsRender = (words) => {
     const wordsBox = $('#words-box');
     wordsBox.empty();

@@ -1,3 +1,7 @@
+'use strict';
+
+/* <최원영> https://choewy.github.com */
+
 let rows = [];
 let filterState = [{
     item: "전체",
