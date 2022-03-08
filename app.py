@@ -137,7 +137,7 @@ def get_words() -> jsonify:
     })
 
 
-@app.route('/api/words/new', method=["POST"])
+@app.route('/api/words/new', methods=["POST"])
 def insert_words() -> jsonify:
 
     # 토큰 유효성 체크
@@ -157,7 +157,7 @@ def insert_words() -> jsonify:
 
 
 # 단어의 _id를 params로 받음
-@app.route('/api/words/<str:_id>', methods=["PUT"])
+@app.route('/api/words/<_id>', methods=["PUT"])
 def update_word(_id) -> jsonify:
 
     # 토큰 유효성 체크
@@ -178,7 +178,7 @@ def update_word(_id) -> jsonify:
 
 
 # 단어의 _id를 params로 받음 ex)/api/words/Xkaeo31axAsleklsj35Gsz
-@app.route('/api/words/<str:_id>', method=["DELETE"])
+@app.route('/api/words/<id>', methods=["DELETE"])
 def delete_words(_id) -> jsonify:
 
     # 토큰 유효성 체크
