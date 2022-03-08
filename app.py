@@ -1,5 +1,3 @@
-
-
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from utils.mongo import MongoDB
 from datetime import datetime, timedelta
