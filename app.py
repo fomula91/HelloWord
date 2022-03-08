@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from utils.mongo import MongoDB
 from datetime import datetime, timedelta
@@ -52,7 +54,8 @@ def check_auth(req) -> jsonify:
                 "message": "사용자 정보를 찾을 수 없습니다."
             }
         return {
-            "ok": True
+            "ok": True,
+            "id": user["user"]["id"]
         }
     except jwt.ExpiredSignatureError:
         return {
@@ -117,7 +120,7 @@ def get_words() -> jsonify:
 
     if not auth['ok']:
         return jsonify(auth)
-
+    print(auth)
     query = request.args.to_dict()
     query["id"] = auth["id"]
 
@@ -133,7 +136,7 @@ def get_words() -> jsonify:
 
     return jsonify({
         "ok": True,
-        "words": result
+        "words": result["words"]
     })
 
 
