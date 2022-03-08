@@ -73,7 +73,7 @@ class MongoDB:
         # query = { key: value }
         try:
             words = list(self.words_collection.find(query))
-            for (i, word) in words:
+            for (i, word) in enumerate(words):
                 word["_id"] = str(word["_id"])
             return {"ok": True, "words": words}
         except Exception as e:
