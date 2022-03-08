@@ -1,5 +1,3 @@
-import json
-
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from utils.mongo import MongoDB
 from datetime import datetime, timedelta
@@ -120,9 +118,9 @@ def get_words() -> jsonify:
 
     if not auth['ok']:
         return jsonify(auth)
-    print(auth)
+
     query = request.args.to_dict()
-    query["id"] = auth["id"]
+    query["user_id"] = auth["id"]
 
     # 'done'이 query에 있는 경우 Boolean으로 형변환
     if 'done' in query.keys():
@@ -150,7 +148,10 @@ def insert_words() -> jsonify:
         return jsonify(auth)
 
     # ajax로 받는 데이터 : { word: String, mean: String }
-    data = request.form
+    data = dict(request.form)
+    data["user_id"] = auth["id"]
+    data["done"] = False
+    data["star"] = False
     result = mongo.insert_word(data)
 
     if not result["ok"]:
