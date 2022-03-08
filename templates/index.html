@@ -2,93 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-
-    <title>Hello Word</title>
-
-    <style>
-        * {
-            font-family: 'Gowun Dodum', sans-serif;
-        }
-
-        .mypic {
-            width: 100%;
-            height: 200px;
-
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1601024445121-e5b82f020549?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1189&q=80');
-            background-position: center;
-            background-size: cover;
-
-            color: white;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mypic > h1 {
-            font-size: 30px;
-        }
-
-        .mybox {
-            width: 95%;
-            max-width: 700px;
-            padding: 20px;
-            box-shadow: 0px 0px 10px 0px lightblue;
-            margin: 20px auto;
-        }
-
-        .mybucket {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .mybucket > input {
-            width: 70%;
-        }
-
-        .mybox > li {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-
-            margin-bottom: 10px;
-            min-height: 48px;
-        }
-
-        .mybox > li > h2 {
-            max-width: 75%;
-            font-size: 20px;
-            font-weight: 500;
-            margin-right: auto;
-            margin-bottom: 0px;
-        }
-
-        .mybox > li > h2.done {
-            text-decoration: line-through
-        }
-    </style>
-    <script>
-
-    </script>
+    <title>Cheatsheet Concept</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon.png">
+    <!-- Bulma Version 0.9.0-->
+    <link rel='stylesheet' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css'>
+    <link rel='stylesheet' href="../css/prism.css">
+    <link rel="stylesheet" href="../css/cheatsheet.css">
+    <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gugi&display=swap" rel="stylesheet">
 </head>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
+<style>
+    .font-size2 {
+        font-size: 100px;
+        font-family: 'East Sea Dokdo', cursive;
+        font-family: 'Gugi', cursive;
+    }
+
+</style>
+<script>
+
+</script>
 <body>
-<div>
-    <h1>hello word</h1>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="columns">
+            <div class="column is-12">
+                <div class="container content is-grouped">
+                    <i class="is-large fab fa-github is-pulled-left"></i>
+                    <p class="title font-size2 ">
+                <span>
+                  hello world
+                </span>
+                        <a href="https://github.com/BulmaTemplates/bulma-templates" target="_blank"
+                           class="button is-primary is-large is-pulled-right">
+                            <span>Github</span>
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="hero is-halfheight">
+    <div class="hero-body column is-offset-5 has-text-centered">
+        <div class="login box is-1">
+            <form>
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-medium is-rounded" type="email" placeholder="hello@example.com"
+                               autocomplete="username" required="">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-medium is-rounded" type="password" placeholder="**********"
+                               autocomplete="current-password" required="">
+                    </div>
+                </div>
+                <br>
+                <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit">
+                    Login
+                </button>
+            </form>
+            <br>
+            <nav class="level">
+                <div class="level-item has-text-centered">
+                    <div>
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <a href="#">Create an Account</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</section>
 </div>
+</section>
+
+
 </body>
 </html>

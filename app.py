@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from utils.mongo import MongoDB
 from datetime import datetime, timedelta
@@ -10,8 +11,10 @@ app = Flask(__name__)
 mongo = MongoDB()
 
 
+
 @app.route('/')
 def home():
+
     token = request.cookies.get("hello-token")
     try:
         payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
@@ -201,3 +204,4 @@ def delete_words(_id) -> jsonify:
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
+

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta charset="UTF-8">
+    <title>Cheatsheet Concept</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon.png">
+    <!-- Bulma Version 0.9.0-->
+    <link rel='stylesheet' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css'>
+    <link rel='stylesheet' href="../css/prism.css">
+    <link rel="stylesheet" href="../css/cheatsheet.css">
+    <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gugi&display=swap" rel="stylesheet">
+  </head>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
+  <style>
+      .input-box {
+        max-width: 550px;
+
+
+      }
+
+      .font-size2 {
+        font-size: 100px;
+        font-family: 'East Sea Dokdo', cursive;
+        font-family: 'Gugi', cursive;
+      }
+
+  </style>
+<script>
+
+</script>
+  <body>
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="columns">
+          <div class="column is-12">
+            <div class="container content is-grouped">
+              <i class="is-large fab fa-github is-pulled-left"></i>
+              <p class="title font-size2">
+                <span>
+                  hello world
+                </span>
+                <a href="https://github.com/BulmaTemplates/bulma-templates" target="_blank" class="button is-primary is-large is-pulled-right">
+                <span>Github</span>
+              </a>
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-2">
+            <aside class="is-medium menu">
+              <p class="menu-label">
+                categories
+              </p>
+              <ul class="menu-list">
+                <li class="is-right"><a href="#const" class="is-active"><i class="fab fa-css3-alt"></i> CSS</a></li>
+                <li><a href="#let" class="is-active"><i class="fab fa-js"></i> JS</a></li>
+                <li><a href="#let" class="is-active"><i class="fab fa-html5"></i> HTML</a></li>
+              </ul>
+            </aside>
+          </div>
+          <div class="column is-10">
+            <div class="content is-medium">
+              <div class="box">
+                <div class="field is-grouped">
+                  <p class="control is-expanded">
+                    <input class="input" type="text" placeholder="input">
+                  </p>
+                  <p class="control">
+                    <a class="button is-info">
+                      add
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <section class="container">
+                <div class="columns features">
+                  <div class="column is-4">
+                    <div class="card is-shady">
+                      <div class="card-content">
+                        <div class="content">
+                          <h4>Click on image above</h4>
+                          <p>Purus semper eget duis at tellus at urna condimentum mattis. Non blandit massa enim nec.
+                            Integer enim neque volutpat ac tincidunt vitae semper quis. Accumsan tortor posuere ac ut
+                            consequat semper viverra nam.</p>
+                          <span class="button is-link modal-button" data-target="modal-image2">Image modal</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-4">
+                    <div class="card is-shady">
+                      <div class="card-content">
+                        <div class="content">
+                          <h4>Tempor orci dapibus faber in.</h4>
+                          <p>Ut venenatis tellus in metus vulputate. Amet consectetur adipiscing elit pellentesque. Sed
+                            arcu non odio euismod lacinia at quis risus. Faucibus turpis in eu mi bibendum neque egestas
+                            cmonsu songue. Phasellus vestibulum lorem
+                            sed risus.</p>
+                          <span class="button is-link modal-button" data-target="modal-card">Modal Card</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-4">
+                    <div class="card is-shady">
+                      <div class="card-content">
+                        <div class="content">
+                          <h4>Tempor orci dapibus faber in.</h4>
+                          <p>Ut venenatis tellus in metus vulputate. Amet consectetur adipiscing elit pellentesque. Sed
+                            arcu non odio euismod lacinia at quis risus. Faucibus turpis in eu mi bibendum neque egestas
+                            cmonsu songue. Phasellus vestibulum lorem
+                            sed risus.</p>
+                          <span class="button is-link modal-button" data-target="modal-card">Modal Card</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="columns features">
+                  <div class="column is-4">
+                    <div class="card is-shady">
+                      <div class="card-content  modal-button" data-target="modal-card2">
+                        <div class="content">
+                          <h4>Click anywhere on card to <br>expand into modal card - header image expands into bigger
+                            image</h4>
+                          <p>Purus semper eget duis at tellus at urna condimentum mattis. Non blandit massa enim nec.
+                            Integer enim neque volutpat ac tincidunt vitae semper quis.</p>
+                          <span class="button is-link modal-button">Modal card</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-4">
+                    <div class="card is-shady">
+                      <div class="card-content  modal-button" data-target="modal-card2">
+                        <div class="content">
+                          <h4>Click anywhere on card to <br>expand into modal card - header image expands into bigger
+                            image</h4>
+                          <p>Purus semper eget duis at tellus at urna condimentum mattis. Non blandit massa enim nec.
+                            Integer enim neque volutpat ac tincidunt vitae semper quis.</p>
+                          <span class="button is-link modal-button">Modal card</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-4">
+                    <div class="card is-shady">
+                      <div class="card-content  modal-button" data-target="modal-card2">
+                        <div class="content">
+                          <h4>Click anywhere on card to <br>expand into modal card - header image expands into bigger
+                            image</h4>
+                          <p>Purus semper eget duis at tellus at urna condimentum mattis. Non blandit massa enim nec.
+                            Integer enim neque volutpat ac tincidunt vitae semper quis.</p>
+                          <span class="button is-link modal-button">Modal card</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="columns features">
+                  <div class="column is-4">
+                    <div class="card is-shady">
+                      <div class="card-content  modal-button" data-target="modal-card2">
+                        <div class="content">
+                          <h4>Click anywhere on card to <br>expand into modal card - header image expands into bigger
+                            image</h4>
+                          <p>Purus semper eget duis at tellus at urna condimentum mattis. Non blandit massa enim nec.
+                            Integer enim neque volutpat ac tincidunt vitae semper quis.</p>
+                          <span class="button is-link modal-button">Modal card</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-4">
+                    <div class="card is-shady">
+                      <div class="card-content  modal-button" data-target="modal-card2">
+                        <div class="content">
+                          <h4>Click anywhere on card to <br>expand into modal card - header image expands into bigger
+                            image</h4>
+                          <p>Purus semper eget duis at tellus at urna condimentum mattis. Non blandit massa enim nec.
+                            Integer enim neque volutpat ac tincidunt vitae semper quis.</p>
+                          <span class="button is-link modal-button">Modal card</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-4">
+                    <div class="card is-shady">
+                      <div class="card-content  modal-button" data-target="modal-card2">
+                        <div class="content">
+                          <h4>Click anywhere on card to <br>expand into modal card - header image expands into bigger
+                            image</h4>
+                          <p>Purus semper eget duis at tellus at urna condimentum mattis. Non blandit massa enim nec.
+                            Integer enim neque volutpat ac tincidunt vitae semper quis.</p>
+                          <span class="button is-link modal-button">Modal card</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+
+</body>
+</html>
