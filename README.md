@@ -2,13 +2,12 @@
 
 ## S.A(Starting Assignment)
 
-- [https://choewy.tistory.com/125](https://choewy.tistory.com/125)
-
 ## 진행 상황
 
 ### 1일차 : 2022.03.07(월)
 
-- 기능 정의, 템플릿 구성, DB 스키마 설계, SA 작성
+- 기능 정의, 템플릿 구성, DB 스키마 설계
+  - S.A : [choewy](https://choewy.tistory.com/125)
 - 각자 테스트 버전 구현(역할 분담, 추가 의견 반영 목적)
   - tag : [v1.0.1-test](https://github.com/fomula91/HelloWord/tree/v1.0.0-test) 
   - FE : 김형중, 하상우
