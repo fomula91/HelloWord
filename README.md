@@ -24,6 +24,8 @@
 - flask
 - pymongo
 - PyJWT
+- configparser
+- certifi
 
 ## 환경변수
 
