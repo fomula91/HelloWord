@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
           id="bootstrap-css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -109,44 +111,84 @@
             font-size: 12px;
         }
     </style>
+
+    <script>
+        function logins() {
+            let data = {
+                "id": $('#login-form [name=id]').val(),
+                "pw": $('#login-form [name=pw]').val(),
+            }
+            console.log(data)
+
+            $.ajax({
+                type: "POST",
+                url: "/api/login",
+                data: data,
+                success: function (response) {
+                    console.log(response)
+                    $.cookie('mytoken', response['token'])
+                    window.location.reload()
+                }
+            })
+        }
+
+        function signup() {
+            let data = {
+                "id": $('#signup-form [name=id]').val(),
+                "pw": $('#signup-form [name=pw]').val(),
+                "confirm": $('#signup-form [name=confirm]').val(),
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/api/signup",
+                data: data,
+                success: function (response) {
+                    console.log(response)
+                }
+            })
+        }
+
+        function modify(word_id) {
+            let data = {
+                "word_word": 'zzzzz',
+                "word_mean": 'fddddddd',
+                "word_done": 'qqqqqqqq',
+                "word_star": 'wwwwwwww'
+            }
+
+            $.ajax({
+                type: "put",
+                url: "/api/words/" + word_id,
+                data: data,
+                success: function (res){
+                    console.log(res)
+                }
+            })
+        }
+        function deletes(word_id) {
+            let data = {
+                "word_word": 'zzzzz',
+                "word_mean": 'fddddddd',
+                "word_done": 'qqqqqqqq',
+                "word_star": 'wwwwwwww'
+            }
+
+            $.ajax({
+                type: "delete",
+                url: "/api/words/" + word_id,
+                data: data,
+                success: function (res){
+                    console.log(res)
+                }
+            })
+        }
+
+
+    </script>
 </head>
 <body>
 
-
-<a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
-
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-     style="display: none;">
-    <div class="modal-dialog">
-        <div class="loginmodal-container">
-            <h1>Login to Your Account</h1><br>
-            <form action="/api/login" method="post">
-                <input type="text" name="id" placeholder="Username">
-                <input type="password" name="pw" placeholder="Password">
-                <input type="submit" name="login" class="login loginmodal-submit" value="Login">
-            </form>
-
-            <div class="login-help">
-                <a href="#" data-toggle="modal" data-target="#register-modal">Register</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-     style="display: none;">
-    <div class="modal-dialog">
-        <div class="loginmodal-container">
-            <h1>Register Account</h1><br>
-            <form action="/api/signup" method="post">
-                <input type="text" name="id" placeholder="Username">
-                <input type="password" name="pw" placeholder="Password">
-                <input type="password" name="confirm" placeholder="Confirm Password">
-                <input type="submit" name="login" class="login loginmodal-submit" value="Register">
-            </form>
-
-        </div>
-    </div>
-</div>
+<button onclick="test('6225a150143c2bf56866745f')">test</button>
 </body>
 </html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello word</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon.png">
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <!-- Bulma Version 0.9.0-->
+    <link rel='stylesheet' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css'>
+    <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gugi&display=swap" rel="stylesheet">
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
+    <style>
+        .input-box {
+            max-width: 550px;
+        }
+
+        .font-size2 {
+            font-size: 100px;
+            font-family: 'East Sea Dokdo', cursive;
+            font-family: 'Gugi', cursive;
+        }
+
+        .sub-menu-button {
+            width: 150px;
+            margin-bottom: 15px;
+        }
+
+    </style>
+    <script>
+        function logout() {
+            $.removeCookie('mytoken')
+            window.location.href = '/'
+        }
+    </script>
+    <style>
+        div.cardContainer {
+            height: 200px;
+            width: 200px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        div.cardContainer div {
+            height: inherit;
+            width: inherit;
+            color: #FFF;
+            font-size: 24px;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transition: all 1.5s;
+            -webkit-transition: all 1.5s;
+            -moz-transition: all 1.5s;
+            -o-transition: all 1.5s;
+            padding-top: 80px;
+            text-align: center;
+        }
+
+        .red {
+            background-color: Red;
+        }
+
+        .pink {
+            background-color: pink;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+
+        .green {
+            background-color: Green;
+        }
+
+        .skyblue {
+            background-color: skyblue;
+        }
+
+        .darkblue {
+            background-color: darkblue;
+        }
+
+        div.cardContainer div:last-child {
+            position: relative;
+            top: -200px;
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+            -ms-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            -o-transform: rotateY(180deg);
+        }
+
+        div.cardContainer:hover div:first-child {
+            transform: rotateY(-180deg);
+            -webkit-transform: rotateY(-180deg);
+            -ms-transform: rotateY(-180deg);
+            -moz-transform: rotateY(-180deg);
+            -o-transform: rotateY(-180deg);
+        }
+
+        div.cardContainer:hover div:last-child {
+            transform: rotateY(0deg);
+            -webkit-transform: rotateY(0deg);
+            -ms-transform: rotateY(0deg);
+            -moz-transform: rotateY(0deg);
+            -o-transform: rotateY(0deg);
+        }
+
+    </style>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .wrapper {
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0 auto;
+        }
+
+        .wrapper ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .wrapper ul li {
+            list-style: none;
+            background: #eee;
+            padding: 12px 20px;
+            margin: 5px;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .wrapper ul li.active {
+            background: rgb(25, 93, 172);
+            color: #fff;
+        }
+
+        .poster {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .poster .itemBox {
+            position: relative;
+            width: 200px;
+            height: 266px;
+            margin: 5px;
+            display: block;
+            box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .poster .itemBox:hover {
+            transform: scale(1.1);
+            transition: 0.5s;
+            z-index: 9;
+        }
+
+        .poster .itemBox.hide {
+            display: none;
+        }
+
+        .poster .itemBox img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="columns">
+            <div class="column is-12">
+                <div class="container content is-grouped">
+                    <i class="is-large fab fa-github is-pulled-left"></i>
+                    <p class="title font-size2">
+                <span>
+                  hello world
+                </span>
+                        <button onclick="logout()" class="button is-danger is-large is-pulled-right">로그아웃</button>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-2">
+                <aside class="is-medium menu">
+
+                    <ul class="menu-list">
+                        <button onclick="location.href='/mywords'"
+                                class="button is-medium is-info is-rounded sub-menu-button">전체 단어
+                        </button>
+                        <button onclick="location.href='/favorite'"
+                                class="button is-medium is-info is-rounded sub-menu-button">나만의 단어
+                        </button>
+                        <button onclick="location.href='/quiz'"
+                                class="button is-medium is-info is-rounded sub-menu-button">퀴즈 풀기
+                        </button>
+                    </ul>
+                </aside>
+            </div>
+            <div class="column is-10">
+                <div class="content is-medium">
+                    <div class="box">
+                        <div class="field is-grouped">
+                            <p class="control is-expanded">
+                                <input class="input" type="text" placeholder="input">
+                            </p>
+                            <p class="control">
+                                <a class="button is-info">
+                                    add
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <section class="container">
+                        <div class="wrapper">
+                            <div class="poster">
+                                <div class="cardContainer">
+                                    <div class="red">WORD</div>
+                                    <div class="pink">MEAN</div>
+                                </div>
+                                <div class="cardContainer">
+                                    <div class="red">WORD</div>
+                                    <div class="pink">MEAN</div>
+                                </div>
+                                <div class="cardContainer">
+                                    <div class="red">WORD</div>
+                                    <div class="pink">MEAN</div>
+                                </div>
+                                <div class="cardContainer">
+                                    <div class="red">WORD</div>
+                                    <div class="pink">MEAN</div>
+                                </div>
+                                <div class="cardContainer">
+                                    <div class="red">WORD</div>
+                                    <div class="pink">MEAN</div>
+                                </div>
+                                <div class="cardContainer">
+                                    <div class="red">WORD</div>
+                                    <div class="pink">MEAN</div>
+                                </div>
+                                <div class="cardContainer">
+                                    <div class="red">WORD</div>
+                                    <div class="pink">MEAN</div>
+                                </div>
+                                <div class="cardContainer">
+                                    <div class="red">WORD</div>
+                                    <div class="pink">MEAN</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+</body>
+</html>
