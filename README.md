@@ -10,6 +10,7 @@
 
 - 기능 정의, 템플릿 구성, DB 스키마 설계, SA 작성
 - 각자 테스트 버전 구현(역할 분담, 추가 의견 반영 목적)
+  - tag : [v1.0.1-test](https://github.com/fomula91/HelloWord/tree/v1.0.0-test) 
   - FE : 김형중, 하상우
   - BE : 최원영, 홍승민
 
