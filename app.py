@@ -18,7 +18,7 @@ def home():
         result = mongo.auth_user(payload)
         if not result["ok"]:
             return render_template("index.j2")
-        return redirect(url_for("mywords"))
+        return redirect(url_for("my_words"))
     except jwt.ExpiredSignatureError:
         return render_template("index.j2", message="로그인 시간이 만료되었습니다.")
     except jwt.exceptions.DecodeError:
@@ -26,14 +26,14 @@ def home():
 
 
 @app.route('/mywords')
-def mywords():
+def my_words():
     token = request.cookies.get("hello-token")
     try:
         payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
         result = mongo.auth_user(payload)
         if not result["ok"]:
             return redirect(url_for("home"))
-        return render_template("mywords.j2")
+        return render_template("my_words.j2")
     except jwt.ExpiredSignatureError:
         return redirect(url_for("home", message="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
@@ -106,6 +106,11 @@ def login() -> jsonify:
     })
 
 
+# query-string으로 필터
+# ex) /api/words                            모든 단어 조회
+# ex) /api/words?done=True                  암기 완료한 단어만 조회
+# ex) /api/words?star=True                  즐겨찾기 추가된 단어만 조회
+# ex) /api/words?done=True&start=True       암기 완료 및 즐찾 추가된 단어만 조회
 @app.route('/api/words', methods=["GET"])
 def get_words() -> jsonify:
     auth = check_auth(request)
@@ -114,10 +119,13 @@ def get_words() -> jsonify:
         return jsonify(auth)
 
     query = request.args.to_dict()
+    query["id"] = auth["id"]
 
+    # 'done'이 query에 있는 경우 Boolean으로 형변환
     if 'done' in query.keys():
         query["done"] = bool(strtobool(query["done"]))
 
+    # 'star'가 query에 있는 경우 Boolean으로 형변환
     if 'star' in query.keys():
         query['star'] = bool(strtobool(query["star"]))
 
@@ -131,11 +139,14 @@ def get_words() -> jsonify:
 
 @app.route('/api/words/new', method=["POST"])
 def insert_words() -> jsonify:
+
+    # 토큰 유효성 체크
     auth = check_auth(request)
 
     if not auth['ok']:
         return jsonify(auth)
 
+    # ajax로 받는 데이터 : { word: String, mean: String }
     data = request.form
     result = mongo.insert_word(data)
 
@@ -145,13 +156,18 @@ def insert_words() -> jsonify:
     return jsonify({"ok": True})
 
 
+# 단어의 _id를 params로 받음
 @app.route('/api/words/<str:_id>', methods=["PUT"])
 def update_word(_id) -> jsonify:
+
+    # 토큰 유효성 체크
     auth = check_auth(request)
 
     if not auth['ok']:
         return jsonify(auth)
 
+    # ajax로 받는 데이터 : { word?: String, mean?: String, done?: Boolean, star?: Boolean }
+    # 물음표는 있어도 되고, 없어도 된다는 뜻
     data = request.form
     result = mongo.update_word(_id, data)
 
@@ -161,8 +177,11 @@ def update_word(_id) -> jsonify:
     return {"ok": True}
 
 
+# 단어의 _id를 params로 받음 ex)/api/words/Xkaeo31axAsleklsj35Gsz
 @app.route('/api/words/<str:_id>', method=["DELETE"])
 def delete_words(_id) -> jsonify:
+
+    # 토큰 유효성 체크
     auth = check_auth(request)
 
     if not auth['ok']:
