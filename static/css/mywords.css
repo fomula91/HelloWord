@@ -37,9 +37,6 @@
     margin: 0 0 0 20px;
     cursor: pointer;
 }
-.word-word {
-    cursor: pointer;
-}
 .panel-block {
     display: flex;
     flex-direction: row;
@@ -53,7 +50,16 @@
 }
 .word-texts {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0;
 }
+
+.word-word,
+.word-mean {
+    width: 100%;
+}
+
 .word-buttons {
     width: 100px;
     line-height: 1px;
