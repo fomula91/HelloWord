@@ -2,7 +2,7 @@ import pymongo
 from flask import Flask, render_template
 
 # 기존 코드는 아래 링크를 참고하세요.
-# https://github.com/fomula91/HelloWord/tree/refrence
+# https://github.com/fomula91/HelloWord/tree/v1.0.0-test
 
 JWT_SECRET_KEY = "Hanghae99Chater1MiniTeamProjectHelloWord"
 
