@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- 홍승민 -->
     <meta charset="UTF-8">
     <title>Hello word</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon.png">
-
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
     <!-- Bulma Version 0.9.0-->
     <link rel='stylesheet' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css'>
-    <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gugi&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
+
+    <!-- (추가) 최원영 : 토큰 확인 -->
+    <script rel="stylesheet" src="{{ url_for('static', filename='js/authentication.js') }}"></script>
 
     <!-- (추가) 최원영 : 커스터마이징 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -38,7 +40,7 @@
     <script>
         function logout() {
             $.removeCookie('hello-token');
-            location.replace('/');
+            location.reload();
         }
     </script>
     <style>

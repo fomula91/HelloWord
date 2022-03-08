@@ -4,7 +4,7 @@
 
 const logout = () => {
     $.removeCookie('hello-token');
-    location.replace('/');
+    location.reload();
 };
 
 const wordsRender = (words) => {
