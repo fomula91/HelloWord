@@ -129,25 +129,7 @@ def get_words() -> jsonify:
     })
 
 
-@app.route('/api/word', methods=["PUT"])
-def update_word() -> jsonify:
-    auth = check_auth(request)
-
-    if not auth['ok']:
-        return jsonify(auth)
-
-    _id = request.form.get("_id")
-    data = request.form.get("data")
-
-    result = mongo.update_word(_id, data)
-
-    if not result["ok"]:
-        return {"ok": False, "message": result["message"]}
-
-    return {"ok": True}
-
-
-@app.route('/api/word', method=["POST"])
+@app.route('/api/words/new', method=["POST"])
 def insert_words() -> jsonify:
     auth = check_auth(request)
 
@@ -163,14 +145,29 @@ def insert_words() -> jsonify:
     return jsonify({"ok": True})
 
 
-@app.route('/api/word', method=["DELETE"])
-def delete_words() -> jsonify:
+@app.route('/api/words/<str:_id>', methods=["PUT"])
+def update_word(_id) -> jsonify:
     auth = check_auth(request)
 
     if not auth['ok']:
         return jsonify(auth)
 
-    _id = request.form.get('_id')
+    data = request.form
+    result = mongo.update_word(_id, data)
+
+    if not result["ok"]:
+        return {"ok": False, "message": result["message"]}
+
+    return {"ok": True}
+
+
+@app.route('/api/words/<str:_id>', method=["DELETE"])
+def delete_words(_id) -> jsonify:
+    auth = check_auth(request)
+
+    if not auth['ok']:
+        return jsonify(auth)
+
     result = mongo.delete_word(_id)
 
     if not result["ok"]:
