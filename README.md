@@ -16,12 +16,24 @@
 - DB 스키마, API 설계, 기능 설계 완료
 - 기능별 담당자 지정 및 개발 시작
 - Repository 초기화
+- JWT 사용자 인증, 인가 기능 구현
+- 템플릿 구현 완료
 
 ## 의존성 패키지
 
 - flask
 - pymongo
 - PyJWT
+
+## 환경변수
+
+```ini
+[DB_CONFIG]
+HOST = ${Mongo DB URI}
+
+[FLASK_SECRET_KEY]
+KEY = ${Secret Key}
+```
 
 ## 이슈 사항
 
