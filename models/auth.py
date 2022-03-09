@@ -37,10 +37,7 @@ class Auth:
             payload = jwt.decode(token, SECRET_KEY, algorithms='HS256')
             [ok, user, message] = Users.find(payload["user_id"])
 
-            if not ok:
-                return [ok, '', message]
-
-            return [True, user["user_id"], '']
+            return [ok, user["user_id"], ''] if ok else [ok, '', message]
 
         except jwt.ExpiredSignatureError:
             return [False, '', Error.ExpiredTokenError()]
