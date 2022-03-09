@@ -2,7 +2,7 @@
 
 ## Tags
 
-- [`S.A`](https://choewy.tistory.com/125)
+- [`S.A(Start Assignment)`](https://choewy.tistory.com/125)
 - [`v1.0.0-test`](https://github.com/fomula91/HelloWord/tree/v1.0.0-test)
 - [`v1.0.2-first-merge`](https://github.com/fomula91/HelloWord/tree/v1.0.2-first-merge)
 - [`v1.0.3-complete`](https://github.com/fomula91/HelloWord/tree/v1.0.3-complete)
