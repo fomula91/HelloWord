@@ -1,0 +1,21 @@
+/* 최원영 */
+
+.hero-body {
+    display: flex;
+    flex-direction: column;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+@media screen and (max-width: 1023px) {
+    .navbar-dropdown {
+        display: none;
+    }
+    .navbar-menu.is-active {
+        display: block;
+        position: absolute;
+        width: 100%;
+    }
+}

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 홍승민 -->
+    <meta charset="UTF-8">
+    <title>Hello word</title>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <!-- Bulma Version 0.9.0-->
+    <link rel='stylesheet' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css'>
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gugi&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
+
+    <!-- (추가) 최원영 : 토큰 확인 -->
+    <script src="{{ url_for('static', filename='js/authorize.js') }}"></script>
+
+    <!-- (추가) 최원영 : 커스터마이징 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script rel="stylesheet" src="{{ url_for('static', filename='js/element.triggers.js') }}"></script>
+
+    <!-- (추가) 최원영 : CSS 파일로 분리 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+    <script>
+        // 최원영 : 전역변수
+        let rows;
+        const starIconImage = `<svg xmlns="http://www.w3.org/2000/svg"
+width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+<path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+</svg>`;
+const starFillIconImage = `<svg xmlns="http://www.w3.org/2000/svg"
+width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+</svg>`;
+const checkIconImage = `<svg xmlns="http://www.w3.org/2000/svg"
+width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+<path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+</svg>`;
+const checkFillIconImage = `<svg xmlns="http://www.w3.org/2000/svg"
+width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+</svg>`;
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            getMyWords(10)
+        });
+
+        const getMyWords = (count) => {
+            $.ajax({
+                type: "GET",
+                url : `/api/words`,
+                data: {},
+                success: (res) => {
+                    const { ok, words, message } = res;
+                    if (!ok) return alert(message);
+                    let wordsCount = words.length;
+                    const sliceCount = wordsCount < count ? wordsCount : count;
+                    rows = shuffle(words).slice(0, sliceCount);
+                    renderMyWordCards();
+                }
+            });
+        };
+
+        const getRandomWords = (count) => {
+            $.ajax({
+                type: "GET",
+                url : `/api/words?public=true`,
+                data: {},
+                success: (res) => {
+                    const { ok, words, message } = res;
+                    if (!ok) return alert(message);
+                    rows = shuffle(words).slice(0, count);
+                    renderRandomCards();
+                }
+            });
+        };
+
+        const myDoneClick = (word_id) => {
+            $.ajax({
+                type: "PUT",
+                url: `/api/words/${word_id}`,
+                data: {}
+            });
+        };
+
+        const myWordStarClick = (word_id) => {
+            // JavaScript에 저장되어 있는 데이터에서 word_id에 해당하는 단어 검색
+            const word = rows.find(word => word._id === word_id);
+            const { word_star } = word;
+            const updated = !word_star;
+            $.ajax({
+                type: "PUT",
+                url: `/api/words/${word_id}`,
+                data: { word_star: updated },
+                success: (res) => {
+                    const {ok, message} = res;
+                    if (!ok) return alert(message);
+
+                    rows[rows.indexOf(word)] = { ...word, word_star: updated }
+
+                    const span = $(`#${word_id}-star`);
+                    span.empty();
+                    span.append(updated ? starFillIconImage : starIconImage);
+                }
+            });
+        };
+
+        const myWordDoneClick = (word_id) => {
+
+            // JavaScript에 저장되어 있는 데이터에서 word_id에 해당하는 단어 검색
+            const word = rows.find(word => word._id === word_id);
+            const { word_done } = word;
+            const updated = !word_done;
+            $.ajax({
+                type: "PUT",
+                url: `/api/words/${word_id}`,
+                data: { word_done: updated },
+                success: (res) => {
+                    const {ok, message} = res;
+                    if (!ok) return alert(message);
+
+                    rows[rows.indexOf(word)] = { ...word, word_done: updated }
+
+                    const span = $(`#${word_id}-done`);
+                    span.empty();
+                    span.append(!word_done ? checkFillIconImage : checkIconImage);
+                }
+            });
+        };
+
+        const renderMyWordCards = () => {
+            const cards = $('#cards-poster');
+            cards.empty()
+
+            rows.forEach((word, i) => {
+                const {_id, word_mean, word_word, word_done, word_star} = word;
+                const starClickEvent = `myWordStarClick('${_id}')`;
+                const doneClickEvent = `myWordDoneClick('${_id}')`;
+
+                const doneImage = word_done ? checkFillIconImage : checkIconImage;
+                const starImage = word_star ? starFillIconImage : starIconImage;
+
+                const icons = `<p class="word-icons hidden">
+                    <span id="${_id}-star" class="panel-icon icon-btn-right" onclick="${starClickEvent}">
+                      ${starImage}
+                    </span>
+                    <span id="${_id}-done" class="panel-icon icon-btn-right" onclick="${doneClickEvent}">
+                      ${doneImage}
+                    </span>
+                </p>`;
+
+                cards.append(`
+                <div class="cardContainer">
+                    <div id="card_${i + 1}" class="skyblue2 question-box" >
+                        <p>${word_word}</p>
+                    </div>
+                    <div id="reverse_card_${i + 1}" class="skyblue answer-box">
+                        ${icons}
+                        <p class="answer-mean hidden" style="font-size: 16px;">${word_word}</p>
+                        <p style="font-size: 16px;">${word_mean}</p>
+                        <p class="answer-buttons">
+                            <button class="button is-success" onclick="card_word_answer_click(${i + 1},true)">맞았어요</button>
+                            <button class="button is-danger" onclick="card_word_answer_click(${i + 1},false)">틀렸어요</button>
+                        </p>
+                    </div>
+                </div>`);
+            });
+        };
+
+        const renderRandomCards = () => {
+            const cards = $('#cards-poster');
+            cards.empty()
+
+            rows.forEach((word, i) => {
+                const { word_mean, word_word } = word;
+                cards.append(`<div class="cardContainer">
+                    <div id="card_${i + 1}" class="skyblue2 question-box" >
+                        <p>${word_word}</p>
+                    </div>
+                    <div id="reverse_card_${i + 1}" class="skyblue answer-box">
+                        <p class="answer-mean hidden" style="font-size: 16px;">${word_word}</p>
+                        <p style="font-size: 16px;">${word_mean}</p>
+                        <p class="answer-buttons">
+                            <button class="button is-success" onclick="card_word_answer_click(${i + 1},true)">맞았어요</button>
+                            <button class="button is-danger" onclick="card_word_answer_click(${i + 1},false)">틀렸어요</button>
+                        </p>
+                    </div>
+                </div>`);
+            });
+        };
+
+        function card_word_answer_click(card_idx, answer) {
+            if (answer) {
+                $('#card_' + card_idx).attr('class', 'green2 question-box')
+                $('#reverse_card_' + card_idx).attr('class', 'green answer-box fixed')
+            } else {
+                $('#card_' + card_idx).attr('class', 'pink question-box')
+                $('#reverse_card_' + card_idx).attr('class', 'red answer-box fixed')
+            }
+            $(`#reverse_card_${card_idx} .word-icons`).show()
+            $(`#reverse_card_${card_idx} .answer-mean`).show()
+        }
+
+        function myWordsClick() {
+            let cards_cnt = $('#mix_card_num_input').val()
+            if (cards_cnt.length === 0)
+                cards_cnt = 10
+            if (cards_cnt < 0)
+                cards_cnt = 10
+            if (cards_cnt > 100)
+                cards_cnt = 100
+
+            getMyWords(cards_cnt)
+        }
+
+        function randomWordsClick() {
+            let cards_cnt = $('#mix_card_num_input').val()
+            if (cards_cnt.length === 0)
+                cards_cnt = 10
+            if (cards_cnt < 0)
+                cards_cnt = 10
+            if (cards_cnt > 100)
+                cards_cnt = 100
+
+            getRandomWords(cards_cnt)
+        }
+
+        function shuffle(array) {
+            for (let i = 0; i < array.length; i++) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function logout() {
+            $.removeCookie('hello-token');
+            location.reload();
+        }
+    </script>
+</head>
+
+<body>
+
+<!-- (추가) 최원영 : 상단 네이게이션 -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item"
+           href="https://hanghae99.spartacodingclub.kr/?utm_source=google_sa&utm_medium=paid&utm_campaign=15140556153&utm_content=129341608796&utm_term=%ED%95%AD%ED%95%B499_558314615957&gclid=Cj0KCQiAmpyRBhC-ARIsABs2EArVF6Ree0Z3qIrXLE3jeEaeuP4Dq5U-joTn14vqtoSuuI_hKMO_CowaAjZ8EALw_wcB">
+            <img src="https://hanghae99.spartacodingclub.kr/static/images/logo.svg" width="95" height="28">
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+           onclick="buggerMenuClick()">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="/">
+                홈
+            </a>
+            <a class="navbar-item" href="/mywords">
+                나만의 단어장
+            </a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" onclick="mobileDropDownClick()">
+                    더보기
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="https://github.com/choewy">
+                        GitHub - 최원영
+                    </a>
+                    <a class="navbar-item" href="https://github.com/voyager16">
+                        GitHub - 하상우
+                    </a>
+                    <a class="navbar-item" href="https://github.com/smhong">
+                        GitHub - 홍승민
+                    </a>
+                    <a class="navbar-item" href="https://github.com/fomula91">
+                        GitHub - 김형중
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="https://github.com/fomula91/HelloWord">
+                        GitHub Repository
+                    </a>
+                    <a class="navbar-item" href="https://choewy.tistory.com/125">
+                        S.A(Start Assignment)
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button" onclick="logout()">
+                        <strong>로그아웃</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="columns">
+            <div class="column is-12">
+                <div class="container content is-grouped">
+                    <i class="is-large fab fa-github is-pulled-left"></i>
+                    <p class="title font-size2" style="font-size: 75px; font-family: 'Gugi', cursive;">
+                    <span>
+                      hello words
+                    </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section style="padding-top: 1.5rem">
+    <div style="text-align: center;">
+        <input id="mix_card_num_input" class="input is-primary is-large" type="number" max="100" placeholder="카드 수?"
+               style="width: 15rem">
+        <button class="button is-success is-large" onclick="myWordsClick()">나만의 단어</button>
+        <button class="button is-info is-large" onclick="randomWordsClick()">랜덤 단어</button>
+    </div>
+</section>
+<section class="section" style="padding: 0 1.5rem;">
+    <div class="container">
+        <div class="columns" style="justify-content: center;">
+            <div class="column is-10">
+                <section class="container">
+                    <div class="wrapper">
+                        <div id="cards-poster" class="poster">
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

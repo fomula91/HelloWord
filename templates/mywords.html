@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 최원영 -->
+    <meta charset="UTF-8">
+    <title>Hello Word | 나만의 단어장</title>
+
+    <!-- Bulma Version 0.9.0-->
+    <link rel='stylesheet' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css'>
+    <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gugi&display=swap" rel="stylesheet">
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+    <!-- 최원영 -->
+    <script rel="stylesheet" src="{{ url_for('static', filename='js/authorize.js') }}"></script>
+    <script rel="stylesheet" src="{{ url_for('static', filename='js/element.triggers.js') }}"></script>
+    <script rel="stylesheet" src="{{ url_for('static', filename='js/mywords.variables.js') }}"></script>
+    <script rel="stylesheet" src="{{ url_for('static', filename='js/mywords.js') }}"></script>
+
+    <!-- 커스터마이징 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mywords.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<script>
+        {% if message %}
+            alert(`${{message}}`);
+            location.replace("/");
+        {% endif %}
+</script>
+<body>
+
+<!-- 상단 네이게이션 -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://hanghae99.spartacodingclub.kr/?utm_source=google_sa&utm_medium=paid&utm_campaign=15140556153&utm_content=129341608796&utm_term=%ED%95%AD%ED%95%B499_558314615957&gclid=Cj0KCQiAmpyRBhC-ARIsABs2EArVF6Ree0Z3qIrXLE3jeEaeuP4Dq5U-joTn14vqtoSuuI_hKMO_CowaAjZ8EALw_wcB">
+      <img src="https://hanghae99.spartacodingclub.kr/static/images/logo.svg" width="95" height="28">
+    </a>
+    <!-- 버거 메뉴 (max-width: 1023px ) -->
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="buggerMenuClick()">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/">
+        홈
+      </a>
+      <a class="navbar-item" href="/quiz">
+        퀴즈
+      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" onclick="mobileDropDownClick()">
+          더보기
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://github.com/choewy">
+              GitHub - 최원영
+          </a>
+          <a class="navbar-item" href="https://github.com/voyager16">
+              GitHub - 하상우
+          </a>
+          <a class="navbar-item" href="https://github.com/smhong">
+              GitHub - 홍승민
+          </a>
+          <a class="navbar-item" href="https://github.com/fomula91">
+              GitHub - 김형중
+          </a>
+          <hr class="navbar-divider">
+              <a class="navbar-item" href="https://github.com/fomula91/HelloWord">
+                GitHub Repository
+              </a>
+              <a class="navbar-item" href="https://choewy.tistory.com/125">
+                S.A(Start Assignment)
+              </a>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button" onclick="logout()">
+            <strong>로그아웃</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- 대문 -->
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="columns">
+            <div class="column is-12">
+                <div class="container content is-grouped">
+                    <i class="is-large fab fa-github is-pulled-left"></i>
+                    <p class="title font-size2" style="font-size: 75px; font-family: 'Gugi', cursive;">
+                    <span>
+                      hello words
+                    </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 컨텐츠 -->
+<section class="section">
+    <article class="panel is-primary words-list">
+      <p class="panel-heading words-list-title">
+        나만의 단어장
+      </p>
+      <div class="panel-block">
+        <div class="control word-inputs">
+            <div id="filter-trigger" class="dropdown" onclick="filterToggle()">
+          <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+              <span id="filter-item"></span>
+              <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div id="filter-items" class="dropdown-content"></div>
+          </div>
+        </div>
+            <input id="new-word-word" class="input is-primary" type="text" placeholder="단어">
+            <input id="new-word-mean" class="input is-primary" type="text" placeholder="뜻">
+            <button class="button is-primary" onclick="wordAddClick()">추가</button>
+        </div>
+      </div>
+        <div id="words-box"></div>
+    </article>
+</section>
+</body>
+</html>

@@ -1,0 +1,234 @@
+.input-box {
+    max-width: 550px;
+}
+
+.font-size2 {
+    font-size: 100px;
+    font-family: 'East Sea Dokdo', cursive;
+    font-family: 'Gugi', cursive;
+}
+
+.sub-menu-button {
+    width: 150px;
+    margin-bottom: 15px;
+}
+
+/* 카드 배치 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.wrapper ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.wrapper ul li {
+    list-style: none;
+    background: #eee;
+    padding: 12px 20px;
+    margin: 5px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.wrapper ul li.active {
+    background: rgb(25, 93, 172);
+    color: #fff;
+}
+
+.poster {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.poster .itemBox {
+    position: relative;
+    width: 200px;
+    height: 266px;
+    margin: 5px;
+    display: block;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.poster .itemBox:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+    z-index: 9;
+}
+
+.poster .itemBox.hide {
+    display: none;
+}
+
+.poster .itemBox img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 카드 뒤집기 효과 */
+.question-box,
+.answer-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.answer-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.answer-buttons > p {
+    font-size: 14px;
+}
+
+.answer-buttons > button {
+    font-size: 14px;
+    width: 70px;
+    margin: 0 5px 0;
+}
+
+
+div.cardContainer {
+    height: 200px;
+    width: 200px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+div.cardContainer div {
+    height: inherit;
+    width: inherit;
+    color: #FFF;
+    font-size: 24px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    text-align: center;
+}
+
+div.cardContainer > div {
+    border-radius: 2rem;
+}
+
+.red {
+    background-color: Red;
+}
+
+.pink {
+    background-color: pink;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: Green;
+}
+
+.green2 {
+    background-color: #89ee89;
+}
+
+.skyblue {
+    background-color: #35829f;
+}
+
+.skyblue2 {
+    background-color: #74c1ee;
+}
+
+.darkblue {
+    background-color: darkblue;
+}
+
+div.cardContainer div:last-child {
+    position: relative;
+    top: -200px;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+}
+
+div.cardContainer:hover div:first-child {
+    transform: rotateY(-180deg);
+    -webkit-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+}
+
+div.cardContainer:hover div:last-child {
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+}
+
+div.cardContainer p.word-icons {
+    width: 100%;
+    height: 20px;
+    position: relative;
+    top: 10px;
+    padding: 0 0 0 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-block-start: unset;
+    margin-block-end: unset;
+}
+
+div.cardContainer p.word-icons .panel-icon{
+    color: #fff;
+    cursor: pointer;
+}
+
+div.cardContainer p.word-icons,
+div.cardContainer p.answer-mean  {
+    display: none;
+}
+
+div.cardContainer div.fixed {
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+}
+
+div.cardContainer div:last-child.fixed {
+    transform: initial;
+}
