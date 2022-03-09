@@ -1,5 +1,5 @@
 const buggerMenuClick = () => {
-    const buggerMenu = $("#bugger-menu");
+    const buggerMenu = $(".navbar-burger");
     const navbarMenu = $(".navbar-menu");
 
     if (buggerMenu.attr("class").includes("is-active")) {

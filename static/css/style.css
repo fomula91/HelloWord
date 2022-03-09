@@ -1,5 +1,10 @@
 /* 최원영 */
 
+.hero-body {
+    display: flex;
+    flex-direction: column;
+}
+
 body::-webkit-scrollbar {
     display: none;
 }
@@ -7,5 +12,10 @@ body::-webkit-scrollbar {
 @media screen and (max-width: 1023px) {
     .navbar-dropdown {
         display: none;
+    }
+
+    .buttons {
+        justify-content: flex-end;
+        margin: 10px 0 0;
     }
 }
