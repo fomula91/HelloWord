@@ -18,20 +18,14 @@
     <!-- (추가) 최원영 : 커스터마이징 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script rel="stylesheet" src="{{ url_for('static', filename='js/element.triggers.js') }}"></script>
+
+    <!-- 하상우 : CSS 파일로 분리 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
 <style>
-    .font-size2 {
-        font-size: 100px;
-        font-family: 'East Sea Dokdo', cursive;
-        font-family: 'Gugi', cursive;
-    }
-
-    .text-btn {
-        cursor: pointer;
-    }
 </style>
 <script>
         {% if message %}
