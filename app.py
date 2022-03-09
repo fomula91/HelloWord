@@ -133,14 +133,19 @@ def sign_up():
         "user_name": user_name,
         "user_passwd": hashed
     }
+    db.users.insert_one(doc)
+
+    # (추가) 최원영
+    # ------------
     default_words = [
         {"user_id": user_id, "word-word": "create", "word-mean": "생성하다, 창조하다", "word-star": True, "word-done": True},
         {"user_id": user_id, "word-word": "read", "word-mean": "읽다", "word-star": True, "word-done": True},
         {"user_id": user_id, "word-word": "update", "word-mean": "수정하다, 변경하다", "word-star": True, "word-done": True},
         {"user_id": user_id, "word-word": "delete", "word-mean": "삭제하다, 제거하다", "word-star": True, "word-done": True},
     ]
-    db.users.insert_one(doc)
     db.words.insert_many(default_words)
+    # ------------
+
     return jsonify({"ok": True})
 
 
