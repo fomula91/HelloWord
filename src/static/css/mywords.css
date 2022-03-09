@@ -1,0 +1,109 @@
+/* 최원영 */
+
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.words-list-title {
+    text-align: center;
+}
+
+.words-list {
+    width: 100%;
+    max-width: 900px;
+}
+
+.word-inputs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.word-inputs >.dropdown,
+.word-inputs > input,
+.word-inputs > button{
+    margin: 0 5px;
+}
+
+.word-inputs button {
+    display: inline-block;
+}
+
+.icon-btn-right {
+    margin: 0 20px 0 0;
+    cursor: pointer;
+}
+
+.icon-btn-left {
+    margin: 0 0 0 20px;
+    cursor: pointer;
+}
+
+.panel-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.word-icons{
+    width: 100px;
+    line-height: 1px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 0 0 10px;
+
+}
+
+.word-texts {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+    border: none;
+}
+
+.word-buttons {
+    width: 100px;
+    line-height: 1px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0 10px 0;
+}
+
+.word-span-box,
+.word-input-box {
+    width: 100%;
+    height: 35px;
+    margin: 0 10px;
+}
+
+.word-span-box {
+    padding: 5px 10px;
+}
+
+.word-input-box > input {
+    width: 100%;
+    font-size: 1rem;
+    border: 1px solid #00D1B2;
+    border-radius: 2em;
+    padding: 5px 9px;
+
+}
+
+#words-box {
+    height: 520px;
+    overflow-y: scroll;
+}
+
+#words-box::-webkit-scrollbar {
+    display: none;
+}
