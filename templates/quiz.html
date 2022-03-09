@@ -22,178 +22,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script rel="stylesheet" src="{{ url_for('static', filename='js/element.triggers.js') }}"></script>
 
-    <style>
-        .input-box {
-            max-width: 550px;
-        }
-
-        .font-size2 {
-            font-size: 100px;
-            font-family: 'East Sea Dokdo', cursive;
-            font-family: 'Gugi', cursive;
-        }
-
-        .sub-menu-button {
-            width: 150px;
-            margin-bottom: 15px;
-        }
-
-    </style>
-
-    <!--    카드 뒤집기 효과 -->
-    <style>
-        div.cardContainer {
-            height: 200px;
-            width: 200px;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            display: inline-block;
-        }
-
-        div.cardContainer div {
-            height: inherit;
-            width: inherit;
-            color: #FFF;
-            font-size: 24px;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            transition: all 1.5s;
-            -webkit-transition: all 1.5s;
-            -moz-transition: all 1.5s;
-            -o-transition: all 1.5s;
-            padding-top: 80px;
-            text-align: center;
-        }
-
-        .red {
-            background-color: Red;
-        }
-
-        .pink {
-            background-color: pink;
-        }
-
-        .yellow {
-            background-color: yellow;
-        }
-
-        .green {
-            background-color: Green;
-        }
-
-        .skyblue {
-            background-color: skyblue;
-        }
-
-        .darkblue {
-            background-color: darkblue;
-        }
-
-        div.cardContainer div:last-child {
-            position: relative;
-            top: -200px;
-            transform: rotateY(180deg);
-            -webkit-transform: rotateY(180deg);
-            -ms-transform: rotateY(180deg);
-            -moz-transform: rotateY(180deg);
-            -o-transform: rotateY(180deg);
-        }
-
-        div.cardContainer:hover div:first-child {
-            transform: rotateY(-180deg);
-            -webkit-transform: rotateY(-180deg);
-            -ms-transform: rotateY(-180deg);
-            -moz-transform: rotateY(-180deg);
-            -o-transform: rotateY(-180deg);
-        }
-
-        div.cardContainer:hover div:last-child {
-            transform: rotateY(0deg);
-            -webkit-transform: rotateY(0deg);
-            -ms-transform: rotateY(0deg);
-            -moz-transform: rotateY(0deg);
-            -o-transform: rotateY(0deg);
-        }
-
-    </style>
-
-    <!--    카드 배치 -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .wrapper {
-            padding: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin: 0 auto;
-        }
-
-        .wrapper ul {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .wrapper ul li {
-            list-style: none;
-            background: #eee;
-            padding: 12px 20px;
-            margin: 5px;
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
-
-        .wrapper ul li.active {
-            background: rgb(25, 93, 172);
-            color: #fff;
-        }
-
-        .poster {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .poster .itemBox {
-            position: relative;
-            width: 200px;
-            height: 266px;
-            margin: 5px;
-            display: block;
-            box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
-            transition: 0.5s;
-            cursor: pointer;
-        }
-
-        .poster .itemBox:hover {
-            transform: scale(1.1);
-            transition: 0.5s;
-            z-index: 9;
-        }
-
-        .poster .itemBox.hide {
-            display: none;
-        }
-
-        .poster .itemBox img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+    <!-- (추가) 최원영 : CSS 파일로 분리 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
 
     <script>
         $(document).ready(function () {
@@ -219,12 +49,15 @@
             let cards_box = $('#cards-poster')
             cards_box.empty()
 
-
             words.forEach(function (word, idx) {
                 template_html = `
                 <div class="cardContainer">
-                    <div class="red">${word['word_word']}</div>
-                    <div class="pink">${word['word_mean']}</div>
+                    <div id="card_${idx}" class="white-silver">${word['word_word']}</div>
+                    <div id="reverse_card_${idx}" class="white-silver2">
+                        <p style="margin-bottom: 10px">${word['word_mean']}</p>
+                        <button class="button is-success" onclick="card_word_answer_click(${idx},true)">맞았어요</button>
+                        <button class="button is-danger" onclick="card_word_answer_click(${idx},false)">틀렸어요</button>
+                    </div>
                 </div>
                 `
 
@@ -232,12 +65,22 @@
             })
         }
 
+        function card_word_answer_click(card_idx, answer){
+            console.log(card_idx, answer)
+            if(answer) {
+                $('#card_' + card_idx).attr('class', 'green2')
+                $('#reverse_card_' + card_idx).attr('class', 'green')
+            }else{
+                $('#card_' + card_idx).attr('class', 'pink')
+                $('#reverse_card_' + card_idx).attr('class', 'red')
+            }
+
+        }
+
         function logout() {
             $.removeCookie('hello-token');
             location.reload();
         }
-
-
     </script>
 </head>
 
@@ -250,7 +93,8 @@
            href="https://hanghae99.spartacodingclub.kr/?utm_source=google_sa&utm_medium=paid&utm_campaign=15140556153&utm_content=129341608796&utm_term=%ED%95%AD%ED%95%B499_558314615957&gclid=Cj0KCQiAmpyRBhC-ARIsABs2EArVF6Ree0Z3qIrXLE3jeEaeuP4Dq5U-joTn14vqtoSuuI_hKMO_CowaAjZ8EALw_wcB">
             <img src="https://hanghae99.spartacodingclub.kr/static/images/logo.svg" width="95" height="28">
         </a>
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="buggerMenuClick()">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+           onclick="buggerMenuClick()">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -265,7 +109,7 @@
                 나만의 단어장
             </a>
             <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link" onclick="mobileDropDownClick()">
+                <a class="navbar-link" onclick="mobileDropDownClick()">
                     더보기
                 </a>
                 <div class="navbar-dropdown">
@@ -319,16 +163,14 @@
         </div>
     </div>
 </section>
-<section class="section">
+<section class="section" style="padding: 1.5rem;">
     <div class="container">
         <div class="columns" style="justify-content: center;">
-            <div class="column is-10">
+            <div class="column is-10 cards">
                 <section class="container">
                     <div class="wrapper">
                         <div id="cards-poster" class="poster">
                             <div class="cardContainer">
-                                <div class="red">WORD</div>
-                                <div class="pink">MEAN</div>
                             </div>
                         </div>
                     </div>

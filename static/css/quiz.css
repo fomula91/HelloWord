@@ -1,91 +1,4 @@
-.inut-box {
-    max-width: 550px;
-}
-
-.font-size2 {
-    font-size: 100px;
-    font-family: 'East Sea Dokdo', cursive;
-    font-family: 'Gugi', cursive;
-}
-
-.sub-menu-button {
-    width: 150px;
-    margin-bottom: 15px;
-}
-
-div.cardContainer {
-    height: 200px;
-    width: 200px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    display: inline-block;
-}
-
-div.cardContainer div {
-    height: inherit;
-    width: inherit;
-    color: #FFF;
-    font-size: 24px;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    transition: all 1.5s;
-    -webkit-transition: all 1.5s;
-    -moz-transition: all 1.5s;
-    -o-transition: all 1.5s;
-    padding-top: 80px;
-    text-align: center;
-}
-
-.red {
-    background-color: Red;
-}
-
-.pink {
-    background-color: pink;
-}
-
-.yellow {
-    background-color: yellow;
-}
-
-.green {
-    background-color: Green;
-}
-
-.skyblue {
-    background-color: skyblue;
-}
-
-.darkblue {
-    background-color: darkblue;
-}
-
-div.cardContainer div:last-child {
-    position: relative;
-    top: -200px;
-    transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
-    -ms-transform: rotateY(180deg);
-    -moz-transform: rotateY(180deg);
-    -o-transform: rotateY(180deg);
-}
-
-div.cardContainer:hover div:first-child {
-    transform: rotateY(-180deg);
-    -webkit-transform: rotateY(-180deg);
-    -ms-transform: rotateY(-180deg);
-    -moz-transform: rotateY(-180deg);
-    -o-transform: rotateY(-180deg);
-}
-
-div.cardContainer:hover div:last-child {
-    transform: rotateY(0deg);
-    -webkit-transform: rotateY(0deg);
-    -ms-transform: rotateY(0deg);
-    -moz-transform: rotateY(0deg);
-    -o-transform: rotateY(0deg);
-}
-
+/*  카드 배치 */
 * {
     margin: 0;
     padding: 0;
@@ -159,4 +72,116 @@ div.cardContainer:hover div:last-child {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.input-box {
+    max-width: 550px;
+}
+
+.font-size2 {
+    font-size: 100px;
+}
+
+.sub-menu-button {
+    width: 150px;
+    margin-bottom: 15px;
+}
+
+
+ div.cardContainer {
+    height: 200px;
+    width: 200px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+div.cardContainer div {
+    height: inherit;
+    width: inherit;
+
+    /* (추가) 최원영 */
+    font-size: 24px;
+    border-radius: 2rem;
+    /* ----------- */
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    padding-top: 80px;
+    text-align: center;
+}
+
+/* 카드 뒤집기 효과 */
+.red {
+    color: #fff;
+    background-color: Red;
+}
+
+.pink {
+    background-color: pink;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    color: #fff;
+    background-color: Green;
+}
+
+.green2 {
+    background-color: #89ee89;
+}
+
+.skyblue {
+    background-color: #35829f;
+}
+
+.skyblue2 {
+    background-color: #74c1ee;
+}
+
+.darkblue {
+    background-color: darkblue;
+}
+
+div.cardContainer div:last-child {
+    position: relative;
+    top: -200px;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+}
+
+div.cardContainer:hover div:first-child {
+    transform: rotateY(-180deg);
+    -webkit-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+}
+
+div.cardContainer:hover div:last-child {
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+}
+
+/* (추가) 최원영 */
+.white-silver {
+    color: #000;
+    background-color: #ccc;
+}
+.white-silver2 {
+    color: #000;
+    background-color: #bbb;
 }
