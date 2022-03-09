@@ -1,4 +1,20 @@
-/*  카드 배치 */
+
+.input-box {
+    max-width: 550px;
+}
+
+.font-size2 {
+    font-size: 100px;
+    font-family: 'East Sea Dokdo', cursive;
+    font-family: 'Gugi', cursive;
+}
+
+.sub-menu-button {
+    width: 150px;
+    margin-bottom: 15px;
+}
+
+/* 카드 배치 */
 * {
     margin: 0;
     padding: 0;
@@ -74,21 +90,15 @@
     object-fit: cover;
 }
 
-.input-box {
-    max-width: 550px;
+/* 카드 뒤집기 효과 */
+.answer-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
-.font-size2 {
-    font-size: 100px;
-}
-
-.sub-menu-button {
-    width: 150px;
-    margin-bottom: 15px;
-}
-
-
- div.cardContainer {
+div.cardContainer {
     height: 200px;
     width: 200px;
     margin-right: 5px;
@@ -99,25 +109,28 @@
 div.cardContainer div {
     height: inherit;
     width: inherit;
-
-    /* (추가) 최원영 */
+    color: #FFF;
     font-size: 24px;
-    border-radius: 2rem;
-    /* ----------- */
-
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    transition: all 1s;
-    -webkit-transition: all 1s;
-    -moz-transition: all 1s;
-    -o-transition: all 1s;
-    padding-top: 80px;
+    transition: all 1.5s;
+    -webkit-transition: all 1.5s;
+    -moz-transition: all 1.5s;
+    -o-transition: all 1.5s;
+    /*padding-top: 80px;*/
     text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-/* 카드 뒤집기 효과 */
+div.cardContainer > div {
+    border-radius: 2rem;
+}
+
 .red {
-    color: #fff;
     background-color: Red;
 }
 
@@ -130,7 +143,6 @@ div.cardContainer div {
 }
 
 .green {
-    color: #fff;
     background-color: Green;
 }
 
@@ -174,15 +186,4 @@ div.cardContainer:hover div:last-child {
     -ms-transform: rotateY(0deg);
     -moz-transform: rotateY(0deg);
     -o-transform: rotateY(0deg);
-}
-
-/* (추가) 최원영 */
-.white-silver {
-    color: #000;
-    background-color: #ccc;
-}
-
-.white-silver2 {
-    color: #fff;
-    background-color: #aaa;
 }

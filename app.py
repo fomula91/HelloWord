@@ -43,7 +43,6 @@ def check_token(req) -> dict:
 
 @app.route('/')
 def home():
-
     # (추가) 최원영
     # ------------
     check = check_token(request)
@@ -57,7 +56,6 @@ def home():
 
 @app.route('/mywords')
 def my_words():
-
     # (추가) 최원영
     # ------------
     check = check_token(request)
@@ -71,7 +69,6 @@ def my_words():
 
 @app.route('/quiz')
 def quiz():
-
     # (추가) 최원영
     # ------------
     check = check_token(request)
@@ -152,7 +149,6 @@ def sign_up():
 # 김형중
 @app.route('/api/words', methods=["GET"])
 def word_find():
-
     # (수정) 최원영
     # ------------
     check = check_token(request)
@@ -175,6 +171,14 @@ def word_find():
     if "word_star" in query.keys():
         current = query["word_star"]
         query["word_star"] = True if current in ['true'] else False
+    # ------------
+
+    # (추가) 홍승민
+    # ------------
+    if "public" in query.keys():
+        current = query["public"]
+        query["public"] = True if current in ['true'] else False
+        del query["user_id"]
     # ------------
 
     words = list(db.words.find(query))
@@ -216,7 +220,6 @@ def word_insert():
 # 홍승민
 @app.route('/api/words/<string:word_id>', methods=["PUT"])
 def word_modify(word_id):
-
     # (수정) 최원영
     # ------------
     check = check_token(request)
@@ -251,7 +254,6 @@ def word_modify(word_id):
 # 홍승민
 @app.route('/api/words/<string:word_id>', methods=["DELETE"])
 def word_delete(word_id):
-
     # (수정) 최원영
     # ------------
     check = check_token(request)

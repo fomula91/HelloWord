@@ -103,6 +103,13 @@
             }
         });
     };
+
+    // const onSubmitEvent = () => {
+    $("#login-form-box").submit((event) => {
+        event.preventDefault();
+        login();
+    });
+    // }
 </script>
 <body>
 
@@ -186,8 +193,7 @@
 
 <section class="hero is-halfheight">
     <div class="hero-body column has-text-centered">
-        <div id="login-form-box" class="login box is-1">
-            <div>
+        <form id="login-form-box" class="login box is-1">
                 <div class="field">
                     <div class="control">
                         <input id="login-id" class="input is-medium is-rounded" type="text" placeholder="아이디"
@@ -212,8 +218,8 @@
                         </div>
                     </div>
                 </nav>
-            </div>
-        </div>
+            </form>
+        </form>
         <div id="signup-form-box" class="login box is-1">
             <div>
                 <div class="field">

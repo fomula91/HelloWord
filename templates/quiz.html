@@ -27,17 +27,17 @@
 
     <script>
         $(document).ready(function () {
-            get_quiz_words()
+            get_quiz_words(10)
         })
 
-        function get_quiz_words() {
+        function get_quiz_words(cards_cnt = 10, isPublic = false) {
             $.ajax({
                 type: "GET",
-                url: "/api/words",
+                url: "/api/words" + (isPublic ? "?public=" + isPublic : ''),
                 data: {},
                 success: function (response) {
-                    if (response['ok'] == true) {
-                        init_card_word(response['words'])
+                    if (response['ok'] === true) {
+                        init_card_word(shuffle(response['words']), cards_cnt)
                     } else {
                         alert(response['message'])
                     }
@@ -45,42 +45,81 @@
             });
         }
 
-        function init_card_word(words) {
+        function init_card_word(words, cards_cnt) {
             let cards_box = $('#cards-poster')
             cards_box.empty()
 
-            words.forEach(function (word, idx) {
+            if (words.length < cards_cnt)
+                cards_cnt = words.length
+
+            for (let i = 0; i < cards_cnt; i++) {
+                let word = words[i]
                 template_html = `
                 <div class="cardContainer">
-                    <div id="card_${idx}" class="white-silver">${word['word_word']}</div>
-                    <div id="reverse_card_${idx}" class="white-silver2">
+                    <div id="card_${i + 1}" class="skyblue2">
+                        <p>${word['word_word']}</p>
+                    </div>
+                    <div id="reverse_card_${i + 1}" class="skyblue answer-button">
                         <p style="margin-bottom: 10px">${word['word_mean']}</p>
-                        <button class="button is-success" onclick="card_word_answer_click(${idx},true)">맞았어요</button>
-                        <button class="button is-danger" onclick="card_word_answer_click(${idx},false)">틀렸어요</button>
+                            <button class="button is-success" onclick="card_word_answer_click(${i + 1},true)">맞았어요</button>
+                            <button class="button is-danger" onclick="card_word_answer_click(${i + 1},false)">틀렸어요</button>
                     </div>
                 </div>
                 `
 
                 cards_box.append(template_html)
-            })
+            }
         }
 
-        function card_word_answer_click(card_idx, answer){
-            console.log(card_idx, answer)
-            if(answer) {
+        function card_word_answer_click(card_idx, answer) {
+            if (answer) {
                 $('#card_' + card_idx).attr('class', 'green2')
                 $('#reverse_card_' + card_idx).attr('class', 'green')
-            }else{
+            } else {
                 $('#card_' + card_idx).attr('class', 'pink')
                 $('#reverse_card_' + card_idx).attr('class', 'red')
             }
 
         }
 
+        function cards_mix() {
+            let cards_cnt = $('#mix_card_num_input').val()
+            if (cards_cnt.length === 0)
+                cards_cnt = 10
+            if (cards_cnt < 0)
+                cards_cnt = 10
+            if (cards_cnt > 100)
+                cards_cnt = 100
+
+            get_quiz_words(cards_cnt)
+        }
+
+        function cards_all() {
+            let cards_cnt = $('#mix_card_num_input').val()
+            if (cards_cnt.length === 0)
+                cards_cnt = 10
+            if (cards_cnt < 0)
+                cards_cnt = 10
+            if (cards_cnt > 100)
+                cards_cnt = 100
+
+            get_quiz_words(cards_cnt, true)
+        }
+
+        function shuffle(array) {
+            for (let i = 0; i < array.length; i++) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
         function logout() {
             $.removeCookie('hello-token');
             location.reload();
         }
+
+
     </script>
 </head>
 
@@ -163,15 +202,22 @@
         </div>
     </div>
 </section>
-<section class="section" style="padding: 1.5rem;">
+<section style="padding-top: 1.5rem">
+    <div style="text-align: center;">
+        <input id="mix_card_num_input" class="input is-primary is-large" type="number" max="100" placeholder="카드 수?"
+               style="width: 15rem">
+        <button class="button is-success is-large" onclick="cards_mix()">나만의 단어</button>
+        <button class="button is-info is-large" onclick="cards_all()">랜덤 단어</button>
+    </div>
+</section>
+<section class="section" style="padding: 0 1.5rem;">
     <div class="container">
         <div class="columns" style="justify-content: center;">
-            <div class="column is-10 cards">
+            <div class="column is-10">
                 <section class="container">
                     <div class="wrapper">
                         <div id="cards-poster" class="poster">
-                            <div class="cardContainer">
-                            </div>
+
                         </div>
                     </div>
                 </section>
