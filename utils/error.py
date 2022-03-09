@@ -1,3 +1,4 @@
+# 예외 발생 시 메시지를 출력하기 위한 클래스
 class Error:
     @staticmethod
     def UserNotFoundError():
