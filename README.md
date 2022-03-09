@@ -44,7 +44,9 @@
 
 - (작성 필요)
 
-## 의존성 패키지
+## NOTE
+
+#### Dependencies
 
 - flask
 - pymongo
@@ -52,7 +54,7 @@
 - configparser
 - certifi
 
-## 환경변수
+#### Environment (config.ini)
 
 ```ini
 [DB_CONFIG]
@@ -62,13 +64,12 @@ HOST = ${Mongo DB URI}
 KEY = ${Secret Key}
 ```
 
-## 이슈 사항
+#### Issues
 
-#### pymongo 설치 후 bson과의 충돌 이슈 발생
+- pymongo 설치 후 bson과의 충돌 이슈 발생
 
-파이썬 3.7 이상인 경우 bson 기능을 지원하는데, 이때 pymongo의 bson과 충돌 발생
-
-(따라서, bson과 pymongo를 지운 후 다시 pymongo를 설치하여 해결)
+> ❓ 파이썬 3.7 이상인 경우 bson 기능을 지원하는데, 이때 pymongo의 bson과 충돌 발생
+> ✔ bson과 pymongo를 지운 후 다시 pymongo를 설치하여 해결
 
 ```
 $ pip uninstall bson
