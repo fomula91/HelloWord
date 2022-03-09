@@ -2,9 +2,9 @@
 
 /* 최원영 : 100초마다 토큰 유효성 검사 */
 
-const checkAuthentication = () => {
+const checkAuthorize = () => {
     const token = $.cookie('hello-token');
     if (!token) return location.reload();
 };
 
-setInterval(checkAuthentication(), 100);
+setInterval(checkAuthorize(), 100);

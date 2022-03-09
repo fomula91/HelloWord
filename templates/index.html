@@ -5,12 +5,9 @@
     <!-- 하상우 -->
     <meta charset="UTF-8">
     <title>Hello word | 메인 페이지</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon.png">
 
     <!-- Bulma Version 0.9.0-->
     <link rel='stylesheet' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css'>
-    <link rel='stylesheet' href="../css/prism.css">
-    <link rel="stylesheet" href="../css/cheatsheet.css">
     <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gugi&display=swap" rel="stylesheet">
 
@@ -36,6 +33,11 @@
     }
 </style>
 <script>
+        {% if message %}
+            alert(`${{message}}`);
+        {% endif %}
+</script>
+<script>
     $(document).ready(() => {
         $("#signup-form-box").hide();
     })
@@ -49,12 +51,12 @@
     }
 
     <!-- 로그인 -->
-    const login = () => {
+    const login = (e) => {
         let user_id = $("#login-id").val()
         let user_passwd = $("#login-passwd").val()
 
-        if (user_id === "") return alert("아이디를 입력해주세요")
-        if (user_passwd === "") return alert("비밀번호를 입력해주세요")
+        if (user_id === "") return alert("아이디를 입력하세요")
+        if (user_passwd === "") return alert("비밀번호를 입력하세요")
 
         $.ajax({
             type: "POST",
@@ -88,7 +90,7 @@
         let passwdConfirm = $("#signup-passwd-confirm").val();
 
         if (user_id === "") return alert("아이디를 입력하세요");
-        if (!isValidId(user_id)) return alert("아이디의 형식을 확인해주세요.\n(2-10자, 영문과 숫자, 특수 문자(. _ -) 사용 가능");
+        if (!isValidId(user_id)) return alert("아이디의 형식을 확인하세요.\n(2-10자, 영문과 숫자, 특수 문자(. _ -) 사용 가능");
         if (user_name === "") return alert("이름을 입력하세요");
         if (user_passwd === "") return alert("비밀번호를 입력하세요");
         if (!isValidPasswd(user_passwd)) return alert("비밀번호 형식에 맞지 않습니다.\n(8-20자, 영문 및 숫자 필수, 특수 문자(!@#$%^&*) 사용 가능 ");
@@ -203,18 +205,18 @@
                     </div>
                 </div>
                 <br>
-                <button class="button is-block is-fullwidth is-primary is-medium is-rounded" onclick="login()">
+                <button type="submit" class="button is-block is-fullwidth is-primary is-medium is-rounded" onclick="login()">
                     로그인
                 </button>
-            </div>
-            <br>
-            <nav class="level">
-                <div class="level-item has-text-centered">
-                    <div>
-                        <p class="text-btn" onclick="goSignup()">계정이 없으신가요?</p>
+                <br>
+                <nav class="level">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="text-btn" onclick="goSignup()">계정이 없으신가요?</p>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
+            </div>
         </div>
         <div id="signup-form-box" class="login box is-1">
             <div>
@@ -245,7 +247,7 @@
                 </div>
                 <br>
                 <div>
-                <button class="button is-block is-fullwidth is-primary is-medium is-rounded" onclick="signup()">
+                <button type="submit" class="button is-block is-fullwidth is-primary is-medium is-rounded" onclick="signup()">
                     회원가입
                 </button>
                 </div>

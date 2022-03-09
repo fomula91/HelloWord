@@ -122,12 +122,18 @@ const filterToggle = () => {
 };
 
 const wordStarClick = (word_id) => {
+    const word_star = {word_star: }
+    $.ajax({
+        type: "POST",
+        url: `/api/words/${word_id}`,
+        data: {},
+        success: (res) => {
+            const {ok, message} = res;
+            if (!ok) return alert(message);
+        }
+    })
+
     // Ajax 요청 결과
-    const res = {ok: true};
-    const {ok, message} = res;
-
-    if (!ok) return alert(message);
-
     const word = rows.find(word => word.word_id === word_id);
     const {word_star} = word;
     rows[rows.indexOf(word)] = {...word, word_star: !word_star}

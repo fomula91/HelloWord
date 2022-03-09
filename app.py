@@ -83,63 +83,6 @@ def quiz():
     return render_template("quiz.html")
 
 
-@app.route('/api/words')
-def get_words():
-    words = [{
-        "word_id": "1",
-        "word_word": "apple",
-        "word_mean": "사과",
-        "word_done": True,
-        "word_star": False
-    }, {
-        "word_id": "2",
-        "word_word": "banana",
-        "word_mean": "바나나",
-        "word_done": True,
-        "word_star": False
-    }, {
-        "word_id": "3",
-        "word_word": "pear",
-        "word_mean": "배",
-        "word_done": False,
-        "word_star": False
-    }, {
-        "word_id": "4",
-        "word_word": "Oriental Melon",
-        "word_mean": "참외",
-        "word_done": True,
-        "word_star": True
-    }, {
-        "word_id": "5",
-        "word_word": "Grapes",
-        "word_mean": "포도",
-        "word_done": False,
-        "word_star": False
-    }, {
-        "word_id": "6",
-        "word_word": "Fig",
-        "word_mean": "무화과",
-        "word_done": False,
-        "word_star": True
-    }, {
-        "word_id": "7",
-        "word_word": "pomegranate",
-        "word_mean": "석류",
-        "word_done": False,
-        "word_star": False
-    }, {
-        "word_id": "8",
-        "word_word": "jujube",
-        "word_mean": "대추",
-        "word_done": False,
-        "word_star": True
-    }]
-    return jsonify({
-        "ok": True,
-        "words": words
-    })
-
-
 # 하상우
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -194,18 +137,86 @@ def sign_up():
     return jsonify({"ok": True})
 
 
-# 홍승민
-@app.route('/api/words/<string:word_id>', methods=["PUT"])
-def word_modify(word_id):
+# 김형중
+@app.route('/api/words', methods=["GET"])
+def word_find():
+
+    # (수정) 최원영
+    # ------------
     check = check_token(request)
 
     if not check["ok"]:
+        # 기존 : response -> { ok, message }
+        # 변경 : redirect -> /
+        return redirect(url_for("home", message=check["message"]))
+    # ------------
+
+    query = dict(request.args.to_dict())
+    query["user_id"] = check["user_id"]
+    words = list(db.words.find(query))
+
+    # (추가) 최원영
+    # ------------
+    true_list = ['true', 'True', '1']
+
+    if "word_done" in query.keys():
+        current = query["word_done"]
+        query["word_done"] = True if current in true_list else False
+
+    if "word_star" in query.keys():
+        current = query["word_star"]
+        query["word_star"] = True if current in true_list else False
+
+    for (i, word) in enumerate(words):
+        words[i]["_id"] = str(word["_id"])
+    # ------------
+
+    return jsonify({"ok": True, "words": words})
+
+
+# 김형중
+@app.route('/api/words/new', methods=["POST"])
+def word_insert():
+    # (수정) 최원영
+    # ------------
+    check = check_token(request)
+
+    if not check["ok"]:
+        # 기존 : response -> { ok, message }
+        # 변경 : redirect -> /
+        return redirect(url_for("home", message=check["message"]))
+    # ------------
+
+    doc = dict(request.form)
+    doc["user_id"] = check["user_id"]
+    doc["word_done"] = False
+    doc["word_star"] = False
+
+    try:
+        db.words.insert_one(doc)
+        return jsonify({"ok": True})
+    except Exception as e:
+        return jsonify({"ok": False, message: "작업에 실패하였습니다."})
+
+
+# 홍승민
+@app.route('/api/words/<string:word_id>', methods=["PUT"])
+def word_modify(word_id):
+
+    # (수정) 최원영
+    # ------------
+    check = check_token(request)
+
+    if not check["ok"]:
+        # 기존 : response -> { ok, message }
+        # 변경 : redirect -> /
         return redirect(url_for("home", message=check["message"]))
 
     user_id = check["user_id"]
+    # ------------
 
-    update_word = request.form
-    result = db.words.update_one({'_id': ObjectId(word_id), 'user_id': user_id}, {'$set': update_word}).matched_count
+    doc = dict(request.form)
+    result = db.words.update_one({'_id': ObjectId(word_id), 'user_id': user_id}, {'$set': doc}).matched_count
 
     response = {
         "ok": True if result == 1 else False,
@@ -217,20 +228,26 @@ def word_modify(word_id):
 # 홍승민
 @app.route('/api/words/<string:word_id>', methods=["DELETE"])
 def word_delete(word_id):
+
+    # (수정) 최원영
+    # ------------
     check = check_token(request)
 
     if not check["ok"]:
+        # 기존 : response -> { ok, message }
+        # 변경 : redirect -> /
         return redirect(url_for("home", message=check["message"]))
 
     user_id = check["user_id"]
+    # ------------
 
     result = db.words.delete_one({'_id': ObjectId(word_id), 'user_id': user_id}).deleted_count
 
-    data = {
+    response = {
         "ok": True if result == 1 else False,
         "messasge": "삭제하였습니다." if result == 1 else "작업에 실패하였습니다."
     }
-    return jsonify(data)
+    return jsonify(response)
 
 
 if __name__ == '__main__':
