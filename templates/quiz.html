@@ -75,11 +75,11 @@
 
         function card_word_answer_click(card_idx, answer) {
             if (answer) {
-                $('#card_' + card_idx).attr('class', 'green2')
-                $('#reverse_card_' + card_idx).attr('class', 'green')
+                $('#card_' + card_idx).attr('class', 'green2 question-box')
+                $('#reverse_card_' + card_idx).attr('class', 'green answer-box')
             } else {
-                $('#card_' + card_idx).attr('class', 'pink')
-                $('#reverse_card_' + card_idx).attr('class', 'red')
+                $('#card_' + card_idx).attr('class', 'pink question-box')
+                $('#reverse_card_' + card_idx).attr('class', 'red answer-box')
             }
 
         }
