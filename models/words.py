@@ -1,17 +1,16 @@
 from bson import ObjectId
 from utils.client import db
 from utils.error import Error
+from utils import types
 
 collection = db.words
 
 
-class StringObjectId:
-    pass
-
-
+# words 컬렉션 모델
 class Words:
+    # words 검색
     @staticmethod
-    def find(user_id: str, query: dict = None) -> [bool, any]:
+    def find(user_id: str, query: dict = None) -> [types.BooleanOk, types.ArrayWords]:
 
         if query:
             query = dict(query)
@@ -41,8 +40,9 @@ class Words:
             print("Words.find :", e)
             return [False, [], Error.UnexpectedError()]
 
+    # word 추가
     @staticmethod
-    def add(user_id: str, doc: dict):
+    def add(user_id: str, doc: dict) -> [types.BooleanOk, types.StringMessage]:
         doc = dict(doc)
         doc["user_id"] = user_id
         doc["word_done"] = False
@@ -55,8 +55,9 @@ class Words:
             print("Words.add :", e)
             return [False, Error.UnexpectedError()]
 
+    # word 수정
     @staticmethod
-    def update(user_id: str, word_id: StringObjectId, doc: dict) -> [bool, str]:
+    def update(user_id: str, word_id: types.StringObjectId, doc: dict) -> [types.BooleanOk, types.StringMessage]:
         doc = dict(doc)
 
         if "word_done" in doc:
@@ -74,8 +75,9 @@ class Words:
             print("Words.update :", e)
             return [False, Error.UnexpectedError()]
 
+    # word 삭제
     @staticmethod
-    def delete(user_id: str, word_id: StringObjectId) -> [bool, str]:
+    def delete(user_id: str, word_id: types.StringObjectId) -> [types.BooleanOk, types.StringMessage]:
         try:
             collection.delete_one({"user_id": user_id, "_id": ObjectId(word_id)})
             return [True, '수정되었습니다.']
@@ -83,8 +85,9 @@ class Words:
             print("Words.delete :", e)
             return [False, Error.UnexpectedError()]
 
+    # 회원가입 시 임시 데이터 생성
     @staticmethod
-    def dummy(user_id):
+    def dummy(user_id: str) -> [types.BooleanOk, types.StringMessage]:
         default_words = [
             {"word_word": "create", "word_mean": "생성하다, 창조하다", "word_star": True, "word_done": True},
             {"word_word": "read", "word_mean": "읽다", "word_star": True, "word_done": True},

@@ -2,6 +2,7 @@ import configparser
 import certifi
 import os
 
+# 환경 변수
 env = configparser.ConfigParser()
 env.read(os.getcwd() + os.sep + 'config.ini', encoding='utf-8')
 
