@@ -33,9 +33,23 @@
         {% endif %}
 </script>
 <script>
+
+</script>
+<script>
     $(document).ready(() => {
         $("#signup-form-box").hide();
-    })
+
+        $('#login-form-box').on('submit', (e) => {
+            e.preventDefault();
+            login();
+        })
+
+        $('#signup-form-box').on('submit', (e) => {
+            e.preventDefault();
+            signup();
+        })
+    });
+
     const goSignup = () => {
         $("#login-form-box").hide();
         $("#signup-form-box").show();
@@ -46,7 +60,7 @@
     }
 
     <!-- 로그인 -->
-    const login = (e) => {
+    const login = () => {
         let user_id = $("#login-id").val()
         let user_passwd = $("#login-passwd").val()
 
@@ -186,7 +200,7 @@
 
 <section class="hero is-halfheight">
     <div class="hero-body column has-text-centered">
-        <div id="login-form-box" class="login box is-1">
+        <form id="login-form-box" class="login box is-1">
             <div>
                 <div class="field">
                     <div class="control">
@@ -201,7 +215,7 @@
                     </div>
                 </div>
                 <br>
-                <button type="submit" class="button is-block is-fullwidth is-primary is-medium is-rounded" onclick="login()">
+                <button type="submit" class="button is-block is-fullwidth is-primary is-medium is-rounded" >
                     로그인
                 </button>
                 <br>
@@ -213,8 +227,8 @@
                     </div>
                 </nav>
             </div>
-        </div>
-        <div id="signup-form-box" class="login box is-1">
+        </form>
+        <form id="signup-form-box" class="login box is-1">
             <div>
                 <div class="field">
                     <div class="control">
@@ -243,7 +257,7 @@
                 </div>
                 <br>
                 <div>
-                <button type="submit" class="button is-block is-fullwidth is-primary is-medium is-rounded" onclick="signup()">
+                <button type="submit" class="button is-block is-fullwidth is-primary is-medium is-rounded">
                     회원가입
                 </button>
                 </div>
@@ -256,7 +270,7 @@
                     </div>
                 </nav>
             </div>
-        </div>
+        </form>
     </div>
 </section>
 </body>
