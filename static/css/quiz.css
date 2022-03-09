@@ -66,7 +66,7 @@
     height: 266px;
     margin: 5px;
     display: block;
-    box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
     transition: 0.5s;
     cursor: pointer;
 }
@@ -91,12 +91,31 @@
 }
 
 /* 카드 뒤집기 효과 */
-.answer-button {
+.question-box,
+.answer-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.answer-buttons {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
+
+.answer-buttons > p {
+    font-size: 14px;
+}
+
+.answer-buttons > button {
+    font-size: 14px;
+    width: 70px;
+    margin: 0 5px 0;
+}
+
 
 div.cardContainer {
     height: 200px;
@@ -113,17 +132,11 @@ div.cardContainer div {
     font-size: 24px;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    transition: all 1.5s;
-    -webkit-transition: all 1.5s;
-    -moz-transition: all 1.5s;
-    -o-transition: all 1.5s;
-    /*padding-top: 80px;*/
+    transition: all 1s;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
     text-align: center;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 div.cardContainer > div {
