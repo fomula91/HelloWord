@@ -59,12 +59,11 @@ HOST = ${Mongo DB URI}
 KEY = ${Secret Key}
 ```
 
-### Issues
+### Issues (# 1)
 
-- pymongo 설치 후 bson과의 충돌 이슈 발생
+pymongo 설치 후 bson과의 충돌 이슈 발생(파이썬 3.7 이상인 경우 bson 기능을 지원하는데, 이때 pymongo의 bson과 충돌 발생)
 
-> ❓ 파이썬 3.7 이상인 경우 bson 기능을 지원하는데, 이때 pymongo의 bson과 충돌 발생
-> ✔ bson과 pymongo를 지운 후 다시 pymongo를 설치하여 해결
+> bson과 pymongo를 지운 후 다시 pymongo를 설치하여 해결
 
 ```
 $ pip uninstall bson
