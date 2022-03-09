@@ -5,6 +5,7 @@
     flex-direction: column;
 }
 
+/* 페이지 전체 스크롤바 제거 */
 body::-webkit-scrollbar {
     display: none;
 }
