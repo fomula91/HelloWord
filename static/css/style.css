@@ -13,9 +13,4 @@ body::-webkit-scrollbar {
     .navbar-dropdown {
         display: none;
     }
-
-    .buttons {
-        justify-content: flex-end;
-        margin: 10px 0 0;
-    }
 }

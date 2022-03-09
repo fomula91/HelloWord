@@ -3,10 +3,11 @@ const buggerMenuClick = () => {
     const navbarMenu = $(".navbar-menu");
 
     if (buggerMenu.attr("class").includes("is-active")) {
-        navbarMenu.hide();
+        navbarMenu.removeClass("is-active");
         return buggerMenu.removeClass('is-active');
     }
-    navbarMenu.show();
+
+    navbarMenu.addClass("is-active");
     return buggerMenu.addClass("is-active");
 }
 

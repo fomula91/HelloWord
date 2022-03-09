@@ -16,10 +16,12 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
 
     <!-- (추가) 최원영 : 토큰 확인 -->
-    <script rel="stylesheet" src="{{ url_for('static', filename='js/authorize.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/authorize.js') }}"></script>
 
     <!-- (추가) 최원영 : 커스터마이징 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script rel="stylesheet" src="{{ url_for('static', filename='js/element.triggers.js') }}"></script>
+
     <style>
         .input-box {
             max-width: 550px;
@@ -204,7 +206,6 @@
                 url: "/api/words",
                 data: {},
                 success: function (response) {
-                    console.log(response)
                     if (response['ok'] == true) {
                         init_card_word(response['words'])
                     } else {
@@ -249,13 +250,13 @@
            href="https://hanghae99.spartacodingclub.kr/?utm_source=google_sa&utm_medium=paid&utm_campaign=15140556153&utm_content=129341608796&utm_term=%ED%95%AD%ED%95%B499_558314615957&gclid=Cj0KCQiAmpyRBhC-ARIsABs2EArVF6Ree0Z3qIrXLE3jeEaeuP4Dq5U-joTn14vqtoSuuI_hKMO_CowaAjZ8EALw_wcB">
             <img src="https://hanghae99.spartacodingclub.kr/static/images/logo.svg" width="95" height="28">
         </a>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="buggerMenuClick()">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
         </a>
     </div>
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="/">
                 홈
@@ -264,7 +265,7 @@
                 나만의 단어장
             </a>
             <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
+        <a class="navbar-link" onclick="mobileDropDownClick()">
                     더보기
                 </a>
                 <div class="navbar-dropdown">
