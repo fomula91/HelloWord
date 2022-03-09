@@ -11,23 +11,23 @@ const wordsRender = (words) => {
     const wordsBox = $('#words-box');
     wordsBox.empty();
     words.forEach((word, i) => {
-        const {word_id, word_star, word_done, word_word, word_mean } = word;
-        const starClickEvent = `wordStarClick('${word_id}')`;
-        const doneClickEvent = `wordDoneClick('${word_id}')`;
-        const editClickEvent = `wordEditClick('${word_id}')`;
-        const removeClickEvent = `wordRemoveClick('${word_id}')`;
-        const saveClickEvent = `wordSaveClick('${word_id}');`;
-        const cancelClickEvent = `wordEditCancel('${word_id}')`;
+        const {_id, word_star, word_done, word_word, word_mean } = word;
+        const starClickEvent = `wordStarClick('${_id}')`;
+        const doneClickEvent = `wordDoneClick('${_id}')`;
+        const editClickEvent = `wordEditClick('${_id}')`;
+        const removeClickEvent = `wordRemoveClick('${_id}')`;
+        const saveClickEvent = `wordSaveClick('${_id}');`;
+        const cancelClickEvent = `wordEditCancel('${_id}')`;
 
         const doneImage = word_done ? checkFillIconImage : checkIconImage;
         const starImage = word_star ? starFillIconImage : starIconImage;
 
         const iconBox = `
                 <div class="word-icons">
-                <span id="${word_id}-star" class="panel-icon icon-btn-right" onclick="${starClickEvent}">
+                <span id="${_id}-star" class="panel-icon icon-btn-right" onclick="${starClickEvent}">
                   ${starImage}
                 </span>
-                <span id="${word_id}-done" class="panel-icon icon-btn-right" onclick="${doneClickEvent}">
+                <span id="${_id}-done" class="panel-icon icon-btn-right" onclick="${doneClickEvent}">
                   ${doneImage}
                 </span>
             </div>
@@ -35,33 +35,33 @@ const wordsRender = (words) => {
 
         const textBox = `
             <div class="word-texts">
-                <div class="word-span-box ${word_id}-span">
+                <div class="word-span-box ${_id}-span">
                     ${word_word}
                 </div>
-                <div class="word-span-box ${word_id}-span">
+                <div class="word-span-box ${_id}-span">
                     ${word_mean}
                 </div>
-                <div class="word-input-box ${word_id}-input" hidden>
-                    <input id="${word_id}-word-edit" value="${word_word}">
+                <div class="word-input-box ${_id}-input" hidden>
+                    <input id="${_id}-word-edit" value="${word_word}">
                 </div>
-                <div class="word-input-box ${word_id}-input" hidden>
-                    <input id="${word_id}-mean-edit" value="${word_mean}">
+                <div class="word-input-box ${_id}-input" hidden>
+                    <input id="${_id}-mean-edit" value="${word_mean}">
                 </div>
             </div>
         `;
 
         const buttonBox = `
             <div class="word-buttons">
-                <span class="panel-icon icon-btn-left ${word_id}-edit-icon" onclick="${editClickEvent}">
+                <span class="panel-icon icon-btn-left ${_id}-edit-icon" onclick="${editClickEvent}">
                     ${editButtonIconImage}
                 </span>
-                <span class="panel-icon icon-btn-left ${word_id}-remove-icon" onclick="${removeClickEvent}">
+                <span class="panel-icon icon-btn-left ${_id}-remove-icon" onclick="${removeClickEvent}">
                     ${removeButtonIconImage}
                 </span>
-                <div class="panel-icon icon-btn-left ${word_id}-save-icon" style="display: none;" onclick="${saveClickEvent}">
+                <div class="panel-icon icon-btn-left ${_id}-save-icon" style="display: none;" onclick="${saveClickEvent}">
                     ${saveButtonIconImage}
                 </div>
-                <span class="panel-icon icon-btn-left ${word_id}-cancel-icon" style="display: none;" onclick="${cancelClickEvent}">
+                <span class="panel-icon icon-btn-left ${_id}-cancel-icon" style="display: none;" onclick="${cancelClickEvent}">
                     ${cancelButtonIconImage}
                 </span>
             </div>
@@ -76,7 +76,7 @@ const wordsRender = (words) => {
         wordsBox.append(box);
     });
     return rows = [...words];
-}
+};
 
 const filterRender = (index) => {
     const filterItems = $('#filter-items');
@@ -121,42 +121,69 @@ const filterToggle = () => {
     return dropDown.addClass("is-active");
 };
 
-const wordStarClick = (word_id) => {
-    const word_star = {word_star: }
+const wordAddClick = () => {
+    const word_word = $('#new-word-word').val();
+    const word_mean = $('#new-word-mean').val();
+
+    if (word_word === "") return alert("단어를 입력하세요.");
+    if (word_mean === "") return alert("뜻을 입력하세요.");
+
     $.ajax({
         type: "POST",
-        url: `/api/words/${word_id}`,
-        data: {},
+        url: "/api/words/new",
+        data: {word_word, word_mean},
         success: (res) => {
             const {ok, message} = res;
             if (!ok) return alert(message);
+            return location.reload();
         }
-    })
+    });
+};
 
-    // Ajax 요청 결과
-    const word = rows.find(word => word.word_id === word_id);
-    const {word_star} = word;
-    rows[rows.indexOf(word)] = {...word, word_star: !word_star}
+const wordStarClick = (word_id) => {
 
-    const span = $(`#${word_id}-star`);
-    span.empty();
-    span.append(!word_star ? starFillIconImage : starIconImage);
+    // JavaScript에 저장되어 있는 데이터에서 word_id에 해당하는 단어 검색]
+    const word = rows.find(word => word._id === word_id);
+    const { word_star } = word;
+    const updated = !word_star;
+    $.ajax({
+        type: "PUT",
+        url: `/api/words/${word_id}`,
+        data: { word_star: updated },
+        success: (res) => {
+            const {ok, message} = res;
+            if (!ok) return alert(message);
+
+            rows[rows.indexOf(word)] = { ...word, word_star: updated }
+
+            const span = $(`#${word_id}-star`);
+            span.empty();
+            span.append(!word_star ? starFillIconImage : starIconImage);
+        }
+    });
 };
 
 const wordDoneClick = (word_id) => {
-    // Ajax 요청 결과
-    const res = {ok: true};
-    const {ok, message} = res;
 
-    if (!ok) return alert(message);
+    // JavaScript에 저장되어 있는 데이터에서 word_id에 해당하는 단어 검색
+    const word = rows.find(word => word._id === word_id);
+    const { word_done } = word;
+    const updated = !word_done;
+    $.ajax({
+        type: "PUT",
+        url: `/api/words/${word_id}`,
+        data: { word_done: updated },
+        success: (res) => {
+            const {ok, message} = res;
+            if (!ok) return alert(message);
 
-    const word = rows.find(word => word.word_id === word_id);
-    const {word_done} = word;
-    rows[rows.indexOf(word)] = {...word, word_done: !word_done}
+            rows[rows.indexOf(word)] = { ...word, word_done: updated }
 
-    const span = $(`#${word_id}-done`);
-    span.empty();
-    span.append(!word_done ? checkFillIconImage : checkIconImage);
+            const span = $(`#${word_id}-done`);
+            span.empty();
+            span.append(!word_done ? checkFillIconImage : checkIconImage);
+        }
+    });
 };
 
 const wordEditClick = (word_id) => {
@@ -179,8 +206,16 @@ const wordEditCancel = (word_id) => {
 
 const wordRemoveClick = (word_id) => {
     if (confirm("단어를 삭제하시겠습니까?")) {
-        // Ajax 요청
-        location.reload();
+        $.ajax({
+            type: "DELETE",
+            url: `/api/words/${word_id}`,
+            success: (res) => {
+                const {ok, message} = res;
+                if (!ok) return alert(message);
+                alert("삭제되었습니다.");
+                return location.reload();
+            }
+        });
     }
 };
 
@@ -191,15 +226,23 @@ const wordSaveClick = (word_id) => {
     if (!word_word) return alert("단어를 입력하세요.");
     if (!word_mean) return alert("뜻을 입력하세요.");
 
-    const origin = rows.find(word => word.word_id === word_id);
+    const origin = rows.find(word => word._id === word_id);
     if (origin.word_word === word_word && origin.word_mean === word_mean) {
         return wordEditCancel(word_id);
     }
 
-    // Ajax 요청
-    alert("저장되었습니다.");
-    // location.reload();
-}
+    $.ajax({
+        type: "PUT",
+        url: `/api/words/${word_id}`,
+        data: {word_word, word_mean},
+        success: (res) => {
+            const {ok, message} = res;
+            if (!ok) return alert(message);
+            alert("저장되었습니다");
+            return location.reload();
+        }
+    });
+};
 
 $(document).ready(() => {
     filterRender();

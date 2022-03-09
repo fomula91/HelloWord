@@ -153,20 +153,22 @@ def word_find():
 
     query = dict(request.args.to_dict())
     query["user_id"] = check["user_id"]
+
+    # (추가) 최원영
+    # ------------
+    if "word_done" in query.keys():
+        current = query["word_done"]
+        query["word_done"] = True if current in ['true'] else False
+
+    if "word_star" in query.keys():
+        current = query["word_star"]
+        query["word_star"] = True if current in ['true'] else False
+    # ------------
+
     words = list(db.words.find(query))
 
     # (추가) 최원영
     # ------------
-    true_list = ['true', 'True', '1']
-
-    if "word_done" in query.keys():
-        current = query["word_done"]
-        query["word_done"] = True if current in true_list else False
-
-    if "word_star" in query.keys():
-        current = query["word_star"]
-        query["word_star"] = True if current in true_list else False
-
     for (i, word) in enumerate(words):
         words[i]["_id"] = str(word["_id"])
     # ------------
@@ -216,6 +218,15 @@ def word_modify(word_id):
     # ------------
 
     doc = dict(request.form)
+
+    if "word_done" in doc:
+        current = doc["word_done"]
+        doc["word_done"] = True if current in ["true"] else False
+
+    if "word_star" in doc:
+        current = doc["word_star"]
+        doc["word_star"] = True if current in ["true"] else False
+
     result = db.words.update_one({'_id': ObjectId(word_id), 'user_id': user_id}, {'$set': doc}).matched_count
 
     response = {
