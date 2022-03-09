@@ -17,6 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
     <!-- 최원영 -->
+    <script rel="stylesheet" src="{{ url_for('static', filename='js/element.triggers.js') }}"></script>
     <script rel="stylesheet" src="{{ url_for('static', filename='js/mywords.variables.js') }}"></script>
     <script rel="stylesheet" src="{{ url_for('static', filename='js/mywords.js') }}"></script>
     <script rel="stylesheet" src="{{ url_for('static', filename='js/authorize.js') }}"></script>
@@ -40,10 +41,11 @@
     <a class="navbar-item" href="https://hanghae99.spartacodingclub.kr/?utm_source=google_sa&utm_medium=paid&utm_campaign=15140556153&utm_content=129341608796&utm_term=%ED%95%AD%ED%95%B499_558314615957&gclid=Cj0KCQiAmpyRBhC-ARIsABs2EArVF6Ree0Z3qIrXLE3jeEaeuP4Dq5U-joTn14vqtoSuuI_hKMO_CowaAjZ8EALw_wcB">
       <img src="https://hanghae99.spartacodingclub.kr/static/images/logo.svg" width="95" height="28">
     </a>
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true">1</span>
-      <span aria-hidden="true">2</span>
-      <span aria-hidden="true">3</span>
+    <!-- 버거 메뉴 (max-width: 1023px ) -->
+    <a id="bugger-menu" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="buggerMenuClick()">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
     </a>
   </div>
   <div id="navbarBasicExample" class="navbar-menu">
@@ -55,7 +57,7 @@
         퀴즈
       </a>
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
+        <a class="navbar-link" onclick="mobileDropDownClick()">
           더보기
         </a>
         <div class="navbar-dropdown">
