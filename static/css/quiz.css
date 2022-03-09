@@ -200,3 +200,12 @@ div.cardContainer:hover div:last-child {
     -moz-transform: rotateY(0deg);
     -o-transform: rotateY(0deg);
 }
+
+div.cardContainer div.fixed {
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+}
+
+div.cardContainer div:last-child.fixed {
+    transform: initial;
+}

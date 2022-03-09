@@ -45,6 +45,10 @@
             });
         }
 
+        const plusClick = () => {
+            // 여기 구현필요
+        };
+
         function init_card_word(words, cards_cnt) {
             let cards_box = $('#cards-poster')
             cards_box.empty()
@@ -54,6 +58,7 @@
 
             for (let i = 0; i < cards_cnt; i++) {
                 let word = words[i]
+
                 template_html = `
                 <div class="cardContainer">
                     <div id="card_${i + 1}" class="skyblue2 question-box" >
@@ -76,12 +81,11 @@
         function card_word_answer_click(card_idx, answer) {
             if (answer) {
                 $('#card_' + card_idx).attr('class', 'green2 question-box')
-                $('#reverse_card_' + card_idx).attr('class', 'green answer-box')
+                $('#reverse_card_' + card_idx).attr('class', 'green answer-box fixed')
             } else {
                 $('#card_' + card_idx).attr('class', 'pink question-box')
-                $('#reverse_card_' + card_idx).attr('class', 'red answer-box')
+                $('#reverse_card_' + card_idx).attr('class', 'red answer-box fixed')
             }
-
         }
 
         function cards_mix() {
