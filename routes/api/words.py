@@ -7,9 +7,9 @@ words_api = Blueprint('words_api', __name__, url_prefix="/api/words")
 
 @words_api.route('/', methods=["GET"])
 def word_find():
-    [signed, user_id, _] = Auth.check(request)
+    [ok, user_id, _] = Auth.check(request)
 
-    if not signed:
+    if not ok:
         return redirect(url_for("pages.home"))
 
     query = request.args.to_dict()
@@ -20,9 +20,9 @@ def word_find():
 
 @words_api.route('/new', methods=["POST"])
 def word_insert():
-    [signed, user_id, _] = Auth.check(request)
+    [ok, user_id, _] = Auth.check(request)
 
-    if not signed:
+    if not ok:
         return redirect(url_for("pages.home"))
 
     doc = request.form
@@ -33,9 +33,9 @@ def word_insert():
 
 @words_api.route('/<string:word_id>', methods=["PUT"])
 def word_modify(word_id):
-    [signed, user_id, _] = Auth.check(request)
+    [ok, user_id, _] = Auth.check(request)
 
-    if not signed:
+    if not ok:
         return redirect(url_for("pages.home"))
 
     doc = request.form
@@ -46,9 +46,9 @@ def word_modify(word_id):
 
 @words_api.route('/<string:word_id>', methods=["DELETE"])
 def word_delete(word_id):
-    [signed, user_id, _] = Auth.check(request)
+    [ok, user_id, _] = Auth.check(request)
 
-    if not signed:
+    if not ok:
         return redirect(url_for("pages.home"))
 
     [ok, message] = Words.delete(user_id, word_id)
