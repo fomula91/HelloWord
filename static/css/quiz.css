@@ -201,6 +201,10 @@ div.cardContainer:hover div:last-child {
     -o-transform: rotateY(0deg);
 }
 
+div.cardContainer p.answer-mean  {
+    display: none;
+}
+
 div.cardContainer div.fixed {
     backface-visibility: visible;
     -webkit-backface-visibility: visible;
