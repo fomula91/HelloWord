@@ -24,42 +24,163 @@
 
     <!-- (추가) 최원영 : CSS 파일로 분리 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+    <script>
+        // 최원영 : 전역변수
+        let rows;
+        const starIconImage = `<svg xmlns="http://www.w3.org/2000/svg"
+width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+<path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+</svg>`;
+const starFillIconImage = `<svg xmlns="http://www.w3.org/2000/svg"
+width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+</svg>`;
+const checkIconImage = `<svg xmlns="http://www.w3.org/2000/svg"
+width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+<path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+</svg>`;
+const checkFillIconImage = `<svg xmlns="http://www.w3.org/2000/svg"
+width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+</svg>`;
+    </script>
 
     <script>
         $(document).ready(function () {
-            get_quiz_words(10)
-        })
+            getMyWords(10)
+        });
 
-        function get_quiz_words(cards_cnt = 10, isPublic = false) {
+        const getMyWords = (count) => {
             $.ajax({
                 type: "GET",
-                url: "/api/words" + (isPublic ? "?public=" + isPublic : ''),
+                url : `/api/words`,
                 data: {},
-                success: function (response) {
-                    if (response['ok'] === true) {
-                        init_card_word(shuffle(response['words']), cards_cnt)
-                    } else {
-                        alert(response['message'])
-                    }
+                success: (res) => {
+                    const { ok, words, message } = res;
+                    if (!ok) return alert(message);
+                    let wordsCount = words.length;
+                    const sliceCount = wordsCount < count ? wordsCount : count;
+                    rows = shuffle(words).slice(0, sliceCount);
+                    renderMyWordCards();
                 }
             });
-        }
-
-        const plusClick = () => {
-            // 여기 구현필요
         };
 
-        function init_card_word(words, cards_cnt) {
-            let cards_box = $('#cards-poster')
-            cards_box.empty()
+        const getRandomWords = (count) => {
+            $.ajax({
+                type: "GET",
+                url : `/api/words?public=true`,
+                data: {},
+                success: (res) => {
+                    const { ok, words, message } = res;
+                    if (!ok) return alert(message);
+                    rows = shuffle(words).slice(0, count);
+                    renderRandomCards();
+                }
+            });
+        };
 
-            if (words.length < cards_cnt)
-                cards_cnt = words.length
+        const myDoneClick = (word_id) => {
+            $.ajax({
+                type: "PUT",
+                url: `/api/words/${word_id}`,
+                data: {}
+            });
+        };
 
-            for (let i = 0; i < cards_cnt; i++) {
-                let word = words[i]
+        const myWordStarClick = (word_id) => {
+            // JavaScript에 저장되어 있는 데이터에서 word_id에 해당하는 단어 검색
+            const word = rows.find(word => word._id === word_id);
+            const { word_star } = word;
+            const updated = !word_star;
+            $.ajax({
+                type: "PUT",
+                url: `/api/words/${word_id}`,
+                data: { word_star: updated },
+                success: (res) => {
+                    const {ok, message} = res;
+                    if (!ok) return alert(message);
 
-                template_html = `
+                    rows[rows.indexOf(word)] = { ...word, word_star: updated }
+
+                    const span = $(`#${word_id}-star`);
+                    span.empty();
+                    span.append(updated ? starFillIconImage : starIconImage);
+                }
+            });
+        };
+
+        const myWordDoneClick = (word_id) => {
+
+            // JavaScript에 저장되어 있는 데이터에서 word_id에 해당하는 단어 검색
+            const word = rows.find(word => word._id === word_id);
+            const { word_done } = word;
+            const updated = !word_done;
+            $.ajax({
+                type: "PUT",
+                url: `/api/words/${word_id}`,
+                data: { word_done: updated },
+                success: (res) => {
+                    const {ok, message} = res;
+                    if (!ok) return alert(message);
+
+                    rows[rows.indexOf(word)] = { ...word, word_done: updated }
+
+                    const span = $(`#${word_id}-done`);
+                    span.empty();
+                    span.append(!word_done ? checkFillIconImage : checkIconImage);
+                }
+            });
+        };
+
+        const renderMyWordCards = () => {
+            const cards = $('#cards-poster');
+            cards.empty()
+
+            rows.forEach((word, i) => {
+                const {_id, word_mean, word_word, word_done, word_star} = word;
+                const starClickEvent = `myWordStarClick('${_id}')`;
+                const doneClickEvent = `myWordDoneClick('${_id}')`;
+
+                const doneImage = word_done ? checkFillIconImage : checkIconImage;
+                const starImage = word_star ? starFillIconImage : starIconImage;
+
+                const icons = `
+                <p class="word-icons hidden">
+                    <span id="${_id}-star" class="panel-icon icon-btn-right" onclick="${starClickEvent}">
+                      ${starImage}
+                    </span>
+                    <span id="${_id}-done" class="panel-icon icon-btn-right" onclick="${doneClickEvent}">
+                      ${doneImage}
+                    </span>
+                </p>`;
+
+                cards.append(`
+                <div class="cardContainer">
+                    <div id="card_${i + 1}" class="skyblue2 question-box" >
+                        <p>${word_word}</p>
+                    </div>
+                    <div id="reverse_card_${i + 1}" class="skyblue answer-box">
+                        ${icons}
+                        <p class="answer-mean hidden" style="font-size: 16px;">${word_word}</p>
+                        <p style="font-size: 16px;">${word_mean}</p>
+                        <p class="answer-buttons">
+                            <button class="button is-success" onclick="card_word_answer_click(${i + 1},true)">맞았어요</button>
+                            <button class="button is-danger" onclick="card_word_answer_click(${i + 1},false)">틀렸어요</button>
+                        </p>
+                    </div>
+                </div>
+                `);
+            });
+        };
+
+        const renderRandomCards = () => {
+            const cards = $('#cards-poster');
+            cards.empty()
+
+            rows.forEach((word, i) => {
+                cards.append(`
                 <div class="cardContainer">
                     <div id="card_${i + 1}" class="skyblue2 question-box" >
                         <p>${word['word_word']}</p>
@@ -73,11 +194,9 @@
                         </p>
                     </div>
                 </div>
-                `
-
-                cards_box.append(template_html)
-            }
-        }
+                `);
+            });
+        };
 
         function card_word_answer_click(card_idx, answer) {
             if (answer) {
@@ -87,10 +206,11 @@
                 $('#card_' + card_idx).attr('class', 'pink question-box')
                 $('#reverse_card_' + card_idx).attr('class', 'red answer-box fixed')
             }
+            $(`#reverse_card_${card_idx} .word-icons`).show()
             $(`#reverse_card_${card_idx} .answer-mean`).show()
         }
 
-        function cards_mix() {
+        function myWordsClick() {
             let cards_cnt = $('#mix_card_num_input').val()
             if (cards_cnt.length === 0)
                 cards_cnt = 10
@@ -99,10 +219,10 @@
             if (cards_cnt > 100)
                 cards_cnt = 100
 
-            get_quiz_words(cards_cnt)
+            getMyWords(cards_cnt)
         }
 
-        function cards_all() {
+        function randomWordsClick() {
             let cards_cnt = $('#mix_card_num_input').val()
             if (cards_cnt.length === 0)
                 cards_cnt = 10
@@ -111,7 +231,7 @@
             if (cards_cnt > 100)
                 cards_cnt = 100
 
-            get_quiz_words(cards_cnt, true)
+            getRandomWords(cards_cnt)
         }
 
         function shuffle(array) {
@@ -126,8 +246,6 @@
             $.removeCookie('hello-token');
             location.reload();
         }
-
-
     </script>
 </head>
 
@@ -214,8 +332,8 @@
     <div style="text-align: center;">
         <input id="mix_card_num_input" class="input is-primary is-large" type="number" max="100" placeholder="카드 수?"
                style="width: 15rem">
-        <button class="button is-success is-large" onclick="cards_mix()">나만의 단어</button>
-        <button class="button is-info is-large" onclick="cards_all()">랜덤 단어</button>
+        <button class="button is-success is-large" onclick="myWordsClick()">나만의 단어</button>
+        <button class="button is-info is-large" onclick="randomWordsClick()">랜덤 단어</button>
     </div>
 </section>
 <section class="section" style="padding: 0 1.5rem;">
