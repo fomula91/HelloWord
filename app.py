@@ -139,7 +139,7 @@ def sign_up():
     # ------------
     default_words = [
         {"user_id": user_id, "word_word": "create", "word_mean": "생성하다, 창조하다", "word_star": True, "word_done": True},
-        {"user_id": user_id, "word_word": "read", "word_mean": "읽다", "word-star": True, "word_done": True},
+        {"user_id": user_id, "word_word": "read", "word_mean": "읽다", "word_star": True, "word_done": True},
         {"user_id": user_id, "word_word": "update", "word_mean": "수정하다, 변경하다", "word_star": True, "word_done": True},
         {"user_id": user_id, "word_word": "delete", "word_mean": "삭제하다, 제거하다", "word_star": True, "word_done": True},
     ]
