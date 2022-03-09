@@ -12,8 +12,8 @@
 ### 1일차 - 03.07(월)
 
 - 기능 정의, 템플릿 구성, DB 스키마 및 API 설계
-- S.A(Start Assignment) 작성 [S.A](https://choewy.tistory.com/125)
-- 테스트 버전 구현 [v1.0.1-test](https://github.com/fomula91/HelloWord/tree/v1.0.0-test)
+- S.A(Start Assignment) 작성 ([`S.A`](https://choewy.tistory.com/125))
+- 테스트 버전 구현 ([`v1.0.0-test`](https://github.com/fomula91/HelloWord/tree/v1.0.0-test))
   - 템플릿 : 김형중, 하상우
   - API : 최원영, 홍승민
 - 점검 및 코드 리뷰 진행
@@ -30,9 +30,10 @@
 | 홍승민 | - 단어 퀴즈 페이지 구현<br>- 단어 수정 및 삭제 API 구현<br>- 서버 배포   |
 | 김형중 | - 단어 조회 API 구현<br>- 단어 등록 API 구현                            |
 
-  - JWT 사용자 인증, 인가 기능 구현
-  - 전체 템플릿 구현 완료
-  - 중간 점검 및 코드 리뷰 진행
+- JWT 사용자 인증, 인가 기능 구현
+- 전체 템플릿 구현 완료
+- 1차 코드 통합 ([`v1.0.2-first-merge`](https://github.com/fomula91/HelloWord/tree/v1.0.2-first-merge))
+- 중간 점검 및 코드 리뷰 진행 
 
 ### 3일차 - 03.09(수)
 
