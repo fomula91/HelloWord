@@ -146,8 +146,7 @@ width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewB
                 const doneImage = word_done ? checkFillIconImage : checkIconImage;
                 const starImage = word_star ? starFillIconImage : starIconImage;
 
-                const icons = `
-                <p class="word-icons hidden">
+                const icons = `<p class="word-icons hidden">
                     <span id="${_id}-star" class="panel-icon icon-btn-right" onclick="${starClickEvent}">
                       ${starImage}
                     </span>
@@ -170,8 +169,7 @@ width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewB
                             <button class="button is-danger" onclick="card_word_answer_click(${i + 1},false)">틀렸어요</button>
                         </p>
                     </div>
-                </div>
-                `);
+                </div>`);
             });
         };
 
@@ -180,21 +178,20 @@ width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewB
             cards.empty()
 
             rows.forEach((word, i) => {
-                cards.append(`
-                <div class="cardContainer">
+                const { word_mean, word_word } = word;
+                cards.append(`<div class="cardContainer">
                     <div id="card_${i + 1}" class="skyblue2 question-box" >
-                        <p>${word['word_word']}</p>
+                        <p>${word_word}</p>
                     </div>
                     <div id="reverse_card_${i + 1}" class="skyblue answer-box">
-                        <p class="answer-mean hidden" style="font-size: 16px;">${word['word_word']}</p>
-                        <p style="font-size: 16px;">${word['word_mean']}</p>
+                        <p class="answer-mean hidden" style="font-size: 16px;">${word_word}</p>
+                        <p style="font-size: 16px;">${word_mean}</p>
                         <p class="answer-buttons">
                             <button class="button is-success" onclick="card_word_answer_click(${i + 1},true)">맞았어요</button>
                             <button class="button is-danger" onclick="card_word_answer_click(${i + 1},false)">틀렸어요</button>
                         </p>
                     </div>
-                </div>
-                `);
+                </div>`);
             });
         };
 
