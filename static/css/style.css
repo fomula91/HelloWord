@@ -13,4 +13,9 @@ body::-webkit-scrollbar {
     .navbar-dropdown {
         display: none;
     }
+    .navbar-menu.is-active {
+        display: block;
+        position: absolute;
+        width: 100%;
+    }
 }
