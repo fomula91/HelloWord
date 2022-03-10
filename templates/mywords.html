@@ -37,7 +37,6 @@
     </a>
 
     <!-- 버거 메뉴 (max-width: 1023px ) -->
-    <div>최원영</div>
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="buggerMenuClick()">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -80,21 +79,14 @@
       </div>
     </div>
     
-    <!-- 현재 접속한 사용자 정보 -->
-    <div class="navbar-item">
-      {% if payload %}
-        <b>{{ payload["user_name"] }}({{ payload["user_id"] }})</b>님 반갑습니다!
-      {% endif %}
-    </div >
-
     <div class="navbar-end">
 
-      <!-- 현재 접속한 사용자 정보
+      <!-- 현재 접속한 사용자 정보 -->
       <div class="navbar-item">
         {% if payload %}
           <b>{{ payload["user_name"] }}({{ payload["user_id"] }})</b>님 반갑습니다!
         {% endif %}
-      </div> -->
+      </div>
 
       <!-- 로그아웃 버튼 -->
       <div class="navbar-item">

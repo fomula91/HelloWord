@@ -14,9 +14,9 @@ class Auth:
     @staticmethod
     def sign(user_id: str, user_passwd: str) -> [types.BooleanOk, types.StringToken, types.StringMessage]:
         [ok, user, message] = Users.find(user_id)
-        print(user)
+
         if not ok:
-            return [ok, user, message]
+            return [ok, '', message]
 
         hashed_passwd = hashing(user_passwd)
 
@@ -31,17 +31,21 @@ class Auth:
 
     # 유저 인가 확인(모든 API 요청 시 토큰 검증)
     @staticmethod
-    def check(req: request) -> [types.BooleanOk, types.StringUserId, types.StringMessage]:
+    def check(req: request) -> [types.BooleanOk, types.DictionaryPayload, types.StringMessage]:
         token = req.cookies.get('hello-token')
         try:
             payload = jwt.decode(token, SECRET_KEY, algorithms='HS256')
             [ok, user, message] = Users.find(payload["user_id"])
+
+            if not ok:
+                return [ok, {}, message]
+
             user_id = user["user_id"]
             user_name = user["user_name"]
             return [ok, {"user_id": user_id, "user_name": user_name}, ''] if ok else [ok, '', message]
 
         except jwt.ExpiredSignatureError:
-            return [False, '', Error.ExpiredTokenError()]
+            return [False, {}, Error.ExpiredTokenError()]
 
         except jwt.exceptions.DecodeError:
-            return [False, '', Error.UndefinedTokenError()]
+            return [False, {}, Error.UndefinedTokenError()]
