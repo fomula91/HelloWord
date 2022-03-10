@@ -14,7 +14,7 @@ class Auth:
     @staticmethod
     def sign(user_id: str, user_passwd: str) -> [types.BooleanOk, types.StringToken, types.StringMessage]:
         [ok, user, message] = Users.find(user_id)
-
+        print(user)
         if not ok:
             return [ok, user, message]
 
@@ -22,9 +22,9 @@ class Auth:
 
         if hashed_passwd != user["user_passwd"]:
             return [False, '', Error.PasswdIncorrectError()]
-
+        user_name = user["user_name"]
         expired = datetime.utcnow() + timedelta(seconds=60 * 60 * 24)
-        payload = {"user_id": user_id, "exp": expired}
+        payload = {"user_id": user_id, "user_name": user_name, "exp": expired}
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
         return [True, token, '']
@@ -36,8 +36,9 @@ class Auth:
         try:
             payload = jwt.decode(token, SECRET_KEY, algorithms='HS256')
             [ok, user, message] = Users.find(payload["user_id"])
-
-            return [ok, user["user_id"], ''] if ok else [ok, '', message]
+            user_id = user["user_id"]
+            user_name = user["user_name"]
+            return [ok, {"user_id": user_id, "user_name": user_name}, ''] if ok else [ok, '', message]
 
         except jwt.ExpiredSignatureError:
             return [False, '', Error.ExpiredTokenError()]

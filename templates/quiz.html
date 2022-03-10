@@ -298,6 +298,15 @@ width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewB
             </div>
         </div>
         <div class="navbar-end">
+            
+            <!-- 현재 접속한 사용자 정보 -->
+            <div class="navbar-item">
+                {% if payload %}
+                <b>{{ payload["user_name"] }}({{ payload["user_id"] }})</b>님 반갑습니다!
+                {% endif %}
+            </div>
+            
+            <!-- 로그아웃 버튼 -->
             <div class="navbar-item">
                 <div class="buttons">
                     <a class="button" onclick="logout()">

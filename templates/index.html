@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <!-- 하상우 -->
@@ -25,16 +25,7 @@
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
-<style>
-</style>
-<script>
-        {% if message %}
-            alert(`${{message}}`);
-        {% endif %}
-</script>
-<script>
 
-</script>
 <script>
     $(document).ready(() => {
         $("#signup-form-box").hide();
@@ -59,7 +50,7 @@
         $("#login-form-box").show();
     }
 
-    <!-- 로그인 -->
+    // 로그인
     const login = () => {
         let user_id = $("#login-id").val()
         let user_passwd = $("#login-passwd").val()
@@ -80,13 +71,13 @@
         });
     };
 
-    <!-- 회원가입시 아이디 유효한지 -->
+    // 회원가입시 아이디 유효한지
     const isValidId = (id) => {
         const exp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
         return exp.test(id);
     };
 
-    <!-- 회원가입시 비밀번호 유효한지 -->
+    // 회원가입시 비밀번호 유효한지
     const isValidPasswd = (passwd) => {
         const exp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
         return exp.test(passwd);

@@ -20,6 +20,17 @@ class DictionaryUser:
         return fields
 
 
+# dict 타입의 payload
+class DictionaryPayload:
+    @staticmethod
+    def __type__():
+        fields = {
+            "user_id": str,
+            "user_name": str,
+        }
+        return fields
+
+
 # string 타입의 token
 class StringToken:
     @staticmethod
