@@ -30,6 +30,9 @@
           <a href="https://github.com/fomula91/HelloWord/tree/v1.0.4-refectory"
             ><li>v1.0.4-refectory</li></a
           >
+          <a href="https://github.com/fomula91/HelloWord/tree/v1.0.5-final"
+            ><li>v1.0.5-final</li></a
+          >
         </ul>
       </div>
     </details>
