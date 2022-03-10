@@ -17,7 +17,10 @@
 
     <!-- (추가) 최원영 : 커스터마이징 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script rel="stylesheet" src="{{ url_for('static', filename='js/element.triggers.js') }}"></script>
+    
+    <!-- 최원영 -->
+    <script src="{{ url_for('static', filename='js/global.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/element.triggers.js') }}"></script>
 
     <!-- 하상우 : CSS 파일로 분리 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
@@ -55,8 +58,8 @@
         let user_id = $("#login-id").val()
         let user_passwd = $("#login-passwd").val()
 
-        if (user_id === "") return alert("아이디를 입력하세요")
-        if (user_passwd === "") return alert("비밀번호를 입력하세요")
+        if (user_id === "") return AlertDanger("아이디를 입력하세요")
+        if (user_passwd === "") return AlertDanger("비밀번호를 입력하세요")
 
         $.ajax({
             type: "POST",
@@ -64,7 +67,7 @@
             data: {user_id, user_passwd},
             success: (res) => {
                 const {ok, token, message} = res;
-                if (!ok) return alert(message);
+                if (!ok) return AlertDanger(message);
                 $.cookie('hello-token', token, { path: '/' });
                 return window.location.replace("/mywords")
             }
@@ -89,12 +92,12 @@
         let user_passwd = $("#signup-passwd").val();
         let passwdConfirm = $("#signup-passwd-confirm").val();
 
-        if (user_id === "") return alert("아이디를 입력하세요");
-        if (!isValidId(user_id)) return alert("아이디의 형식을 확인하세요.\n(2-10자, 영문과 숫자, 특수 문자(. _ -) 사용 가능");
-        if (user_name === "") return alert("이름을 입력하세요");
-        if (user_passwd === "") return alert("비밀번호를 입력하세요");
-        if (!isValidPasswd(user_passwd)) return alert("비밀번호 형식에 맞지 않습니다.\n(8-20자, 영문 및 숫자 필수, 특수 문자(!@#$%^&*) 사용 가능 ");
-        if (user_passwd !== passwdConfirm) return alert("비밀번호가 일치하지 않습니다.");
+        if (user_id === "") return AlertDanger("아이디를 입력하세요");
+        if (!isValidId(user_id)) return AlertDanger("아이디의 형식을 확인하세요.\n(2-10자, 영문과 숫자, 특수 문자(. _ -) 사용 가능");
+        if (user_name === "") return AlertDanger("이름을 입력하세요");
+        if (user_passwd === "") return AlertDanger("비밀번호를 입력하세요");
+        if (!isValidPasswd(user_passwd)) return AlertDanger("비밀번호 형식에 맞지 않습니다.\n(8-20자, 영문 및 숫자 필수, 특수 문자(!@#$%^&*) 사용 가능 ");
+        if (user_passwd !== passwdConfirm) return AlertDanger("비밀번호가 일치하지 않습니다.");
 
         $.ajax({
             type: "POST",
@@ -102,9 +105,8 @@
             data: {user_id, user_name, user_passwd},
             success: (res) => {
                 const {ok, message} = res;
-                if (!ok) return alert(message);
-                alert("회원가입을 축하드립니다.");
-                return location.reload();
+                if (!ok) return AlertDanger(message);
+                AlertSuccess("회원가입이 완료되었습니다.", true);
             }
         });
     };
@@ -190,7 +192,7 @@
 </section>
 
 <section class="hero is-halfheight">
-    <div class="hero-body column has-text-centered">
+    <div class="hero-body column has-text-centered" style="padding-bottom: 0;">
         <form id="login-form-box" class="login box is-1">
             <div>
                 <div class="field">
@@ -262,6 +264,8 @@
                 </nav>
             </div>
         </form>
+        <!-- Custom Alert -->
+        <div id="alart" class="column is-half is-offset-one-quarter alert-fix" style="top: 0; margin-left:0;"></div>
     </div>
 </section>
 </body>

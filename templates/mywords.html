@@ -17,10 +17,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
     <!-- 최원영 -->
-    <script rel="stylesheet" src="{{ url_for('static', filename='js/authorize.js') }}"></script>
-    <script rel="stylesheet" src="{{ url_for('static', filename='js/element.triggers.js') }}"></script>
-    <script rel="stylesheet" src="{{ url_for('static', filename='js/mywords.variables.js') }}"></script>
-    <script rel="stylesheet" src="{{ url_for('static', filename='js/mywords.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/global.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/authorize.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/element.triggers.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mywords.variables.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mywords.js') }}"></script>
 
     <!-- 커스터마이징 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mywords.css') }}">
@@ -118,6 +119,9 @@
     </div>
 </section>
 
+<!-- Custom Alert -->
+<div id="alart" class="column is-half is-offset-one-quarter alert-fix"></div>
+
 <!-- 컨텐츠 -->
 <section class="section">
     <article class="panel is-primary words-list">
@@ -144,7 +148,7 @@
             <button class="button is-primary" onclick="wordAddClick()">추가</button>
         </div>
       </div>
-        <div id="words-box"></div>
+      <div id="words-box"></div>
     </article>
 </section>
 </body>

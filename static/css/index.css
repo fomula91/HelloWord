@@ -1,9 +1,13 @@
 .font-size2 {
-    font-size: 100px;
-    font-family: 'East Sea Dokdo', cursive;
-    font-family: 'Gugi', cursive;
+  font-size: 100px;
+  font-family: "East Sea Dokdo", cursive;
+  font-family: "Gugi", cursive;
 }
 
 .text-btn {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.alert-fix {
+  position: relative;
 }

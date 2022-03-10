@@ -1,22 +1,28 @@
 /* 최원영 */
 
 .hero-body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 페이지 전체 스크롤바 제거 */
 body::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 @media screen and (max-width: 1023px) {
-    .navbar-dropdown {
-        display: none;
-    }
-    .navbar-menu.is-active {
-        display: block;
-        position: absolute;
-        width: 100%;
-    }
+  .navbar-dropdown {
+    display: none;
+  }
+  .navbar-menu.is-active {
+    display: block;
+    position: absolute;
+    width: 100%;
+  }
+}
+
+/* 알림 위치 css 추가 */
+.alert-fix {
+  position: fixed;
+  margin-left: 0;
 }

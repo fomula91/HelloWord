@@ -107,7 +107,7 @@ const getWords = (query) => {
         success: (res) => {
             const { ok, words, message } = res;
 
-            if (!ok) return alert(message);
+            if (!ok) return AlertDanger(message);
             return wordsRender(words);
         }
     });
@@ -125,8 +125,8 @@ const wordAddClick = () => {
     const word_word = $('#new-word-word').val();
     const word_mean = $('#new-word-mean').val();
 
-    if (word_word === "") return alert("단어를 입력하세요.");
-    if (word_mean === "") return alert("뜻을 입력하세요.");
+    if (word_word === "") return AlertDanger("단어를 입력하세요.");
+    if (word_mean === "") return AlertDanger("뜻을 입력하세요.");
 
     $.ajax({
         type: "POST",
@@ -134,7 +134,7 @@ const wordAddClick = () => {
         data: { word_word, word_mean },
         success: (res) => {
             const { ok, message } = res;
-            if (!ok) return alert(message);
+            if (!ok) return AlertDanger(message);
             return location.reload();
         }
     });
@@ -151,7 +151,7 @@ const wordStarClick = (word_id) => {
         data: { word_star: updated },
         success: (res) => {
             const { ok, message } = res;
-            if (!ok) return alert(message);
+            if (!ok) return AlertDanger(message);
 
             rows[rows.indexOf(word)] = { ...word, word_star: updated }
 
@@ -173,7 +173,7 @@ const wordDoneClick = (word_id) => {
         data: { word_done: updated },
         success: (res) => {
             const { ok, message } = res;
-            if (!ok) return alert(message);
+            if (!ok) return AlertDanger(message);
 
             rows[rows.indexOf(word)] = { ...word, word_done: updated }
 
@@ -203,16 +203,15 @@ const wordEditCancel = (word_id) => {
 };
 
 const wordRemoveClick = (word_id) => {
-    const confirm = confirm("단어를 삭제하시겠습니까?");
-    if (confirm) {
+    const question = "단어를 삭제하시겠습니까?";
+    if (confirm(question)) {
         $.ajax({
             type: "DELETE",
             url: `/api/words/${word_id}`,
             success: (res) => {
                 const { ok, message } = res;
-                if (!ok) return alert(message);
-                alert("삭제되었습니다.");
-                return location.reload();
+                if (!ok) return AlertDanger(message);
+                return AlertSuccess("삭제되었습니다.", true);
             }
         });
     };
@@ -222,13 +221,13 @@ const wordSaveClick = (word_id) => {
     const word_word = $(`#${word_id}-word-edit`).val();
     const word_mean = $(`#${word_id}-mean-edit`).val();
 
-    if (!word_word) return alert("단어를 입력하세요.");
-    if (!word_mean) return alert("뜻을 입력하세요.");
+    if (!word_word) return AlertDanger("단어를 입력하세요.");
+    if (!word_mean) return AlertDanger("뜻을 입력하세요.");
 
     const origin = rows.find(word => word._id === word_id);
     if (origin.word_word === word_word && origin.word_mean === word_mean) {
         return wordEditCancel(word_id);
-    }
+    };
 
     $.ajax({
         type: "PUT",
@@ -236,9 +235,8 @@ const wordSaveClick = (word_id) => {
         data: { word_word, word_mean },
         success: (res) => {
             const { ok, message } = res;
-            if (!ok) return alert(message);
-            alert("저장되었습니다");
-            return location.reload();
+            if (!ok) return AlertDanger(message);
+            return AlertSuccess("수정되었습니다.", true);
         }
     });
 };
