@@ -1,5 +1,7 @@
 # 항해99 Chapter 1 - 팀별 미니 프로젝트(1조)
 
+## 
+
 ## Tags
 
 - [`S.A(Start Assignment)`](https://choewy.tistory.com/125)
@@ -69,6 +71,7 @@
 - 유저의 이름(아이디) 표시
 - 커스텀 Alert 적용
 - 최종 검토
+- 시연 영상 촬영 및 편집
 
 ## Note
 
