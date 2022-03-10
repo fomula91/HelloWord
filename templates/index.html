@@ -11,6 +11,7 @@
     <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gugi&display=swap" rel="stylesheet">
 
+
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -28,11 +29,9 @@
 <style>
 </style>
 <script>
-        {% if message %}
-            alert(`${{message}}`);
-        {% endif %}
-</script>
-<script>
+    {% if message %}
+        alert(`${{message}}`);
+    {% endif %}
 
 </script>
 <script>
@@ -63,9 +62,8 @@
     const login = () => {
         let user_id = $("#login-id").val()
         let user_passwd = $("#login-passwd").val()
-
-        if (user_id === "") return alert("아이디를 입력하세요")
-        if (user_passwd === "") return alert("비밀번호를 입력하세요")
+        if (user_id === "") return alert_danger("아이디를 입력하세요")
+        if (user_passwd === "") return alert_danger("비밀번호를 입력하세요")
 
         $.ajax({
             type: "POST",
@@ -73,8 +71,8 @@
             data: {user_id, user_passwd},
             success: (res) => {
                 const {ok, token, message} = res;
-                if (!ok) return alert(message);
-                $.cookie('hello-token', token, { path: '/' });
+                if (!ok) return alert_danger(message);
+                $.cookie('hello-token', token, {path: '/'});
                 return window.location.replace("/mywords")
             }
         });
@@ -98,12 +96,12 @@
         let user_passwd = $("#signup-passwd").val();
         let passwdConfirm = $("#signup-passwd-confirm").val();
 
-        if (user_id === "") return alert("아이디를 입력하세요");
-        if (!isValidId(user_id)) return alert("아이디의 형식을 확인하세요.\n(2-10자, 영문과 숫자, 특수 문자(. _ -) 사용 가능");
-        if (user_name === "") return alert("이름을 입력하세요");
-        if (user_passwd === "") return alert("비밀번호를 입력하세요");
-        if (!isValidPasswd(user_passwd)) return alert("비밀번호 형식에 맞지 않습니다.\n(8-20자, 영문 및 숫자 필수, 특수 문자(!@#$%^&*) 사용 가능 ");
-        if (user_passwd !== passwdConfirm) return alert("비밀번호가 일치하지 않습니다.");
+        if (user_id === "") return alert_danger("아이디를 입력하세요");
+        if (!isValidId(user_id)) return alert_danger("아이디의 형식을 확인하세요.\n(2-10자, 영문과 숫자, 특수 문자(. _ -) 사용 가능");
+        if (user_name === "") return alert_danger("이름을 입력하세요");
+        if (user_passwd === "") return alert_danger("비밀번호를 입력하세요");
+        if (!isValidPasswd(user_passwd)) return alert_danger("비밀번호 형식에 맞지 않습니다.\n(8-20자, 영문 및 숫자 필수, 특수 문자(!@#$%^&*) 사용 가능 ");
+        if (user_passwd !== passwdConfirm) return alert_danger("비밀번호가 일치하지 않습니다.");
 
         $.ajax({
             type: "POST",
@@ -111,73 +109,107 @@
             data: {user_id, user_name, user_passwd},
             success: (res) => {
                 const {ok, message} = res;
-                if (!ok) return alert(message);
-                alert("회원가입을 축하드립니다.");
+                if (!ok) return alert_danger(message);
+                alert_accpt("회원가입을 축하드립니다.");
                 return location.reload();
             }
         });
     };
+
+<!-- 알림 박스 추가  -->
+
+    const alert_danger = (text) => {
+        let temphtml =
+            `<div id="alart-content" class="notification is-danger is-light" style="text-align: center;">
+                        ${text}
+             </div>`
+        $('#alart').append(temphtml)
+
+        setTimeout(function () {
+            $('#alart-content').remove()
+        }, 1000);
+
+
+    }
+    const alert_accpt = (text) => {
+        let temphtml =
+            `<div id="alart-content" class="notification is-link is-light" style="text-align: center;">
+                        ${text}
+             </div>`
+        $('#alart').append(temphtml)
+
+        setTimeout(function () {
+            $('#alart-content').remove()
+        }, 10000);
+
+
+    }
+
+
+
 </script>
 <body>
 
 <!-- 상단 네이게이션 -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="https://hanghae99.spartacodingclub.kr/?utm_source=google_sa&utm_medium=paid&utm_campaign=15140556153&utm_content=129341608796&utm_term=%ED%95%AD%ED%95%B499_558314615957&gclid=Cj0KCQiAmpyRBhC-ARIsABs2EArVF6Ree0Z3qIrXLE3jeEaeuP4Dq5U-joTn14vqtoSuuI_hKMO_CowaAjZ8EALw_wcB">
-      <img src="https://hanghae99.spartacodingclub.kr/static/images/logo.svg" width="95" height="28">
-    </a>
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="buggerMenuClick()">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="/">
-        홈
-      </a>
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link" onclick="mobileDropDownClick()">
-          더보기
+    <div class="navbar-brand">
+        <a class="navbar-item"
+           href="https://hanghae99.spartacodingclub.kr/?utm_source=google_sa&utm_medium=paid&utm_campaign=15140556153&utm_content=129341608796&utm_term=%ED%95%AD%ED%95%B499_558314615957&gclid=Cj0KCQiAmpyRBhC-ARIsABs2EArVF6Ree0Z3qIrXLE3jeEaeuP4Dq5U-joTn14vqtoSuuI_hKMO_CowaAjZ8EALw_wcB">
+            <img src="https://hanghae99.spartacodingclub.kr/static/images/logo.svg" width="95" height="28">
         </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://github.com/choewy">
-              GitHub - 최원영
-          </a>
-          <a class="navbar-item" href="https://github.com/voyager16">
-              GitHub - 하상우
-          </a>
-          <a class="navbar-item" href="https://github.com/smhong">
-              GitHub - 홍승민
-          </a>
-          <a class="navbar-item" href="https://github.com/fomula91">
-              GitHub - 김형중
-          </a>
-          <hr class="navbar-divider">
-              <a class="navbar-item" href="https://github.com/fomula91/HelloWord">
-                GitHub Repository
-              </a>
-              <a class="navbar-item" href="https://choewy.tistory.com/125">
-                S.A(Start Assignment)
-              </a>
-        </div>
-      </div>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+           onclick="buggerMenuClick()">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
     </div>
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary" onclick="goLogin()">
-            <strong>로그인</strong>
-          </a>
-          <a class="button" onclick="goSignup()">
-            <strong>회원가입</strong>
-          </a>
+
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="/">
+                홈
+            </a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" onclick="mobileDropDownClick()">
+                    더보기
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="https://github.com/choewy">
+                        GitHub - 최원영
+                    </a>
+                    <a class="navbar-item" href="https://github.com/voyager16">
+                        GitHub - 하상우
+                    </a>
+                    <a class="navbar-item" href="https://github.com/smhong">
+                        GitHub - 홍승민
+                    </a>
+                    <a class="navbar-item" href="https://github.com/fomula91">
+                        GitHub - 김형중
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="https://github.com/fomula91/HelloWord">
+                        GitHub Repository
+                    </a>
+                    <a class="navbar-item" href="https://choewy.tistory.com/125">
+                        S.A(Start Assignment)
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" onclick="goLogin()">
+                        <strong>로그인</strong>
+                    </a>
+                    <a class="button" onclick="goSignup()">
+                        <strong>회원가입</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
 
 <!-- 대문 -->
@@ -198,6 +230,8 @@
     </div>
 </section>
 
+
+
 <section class="hero is-halfheight">
     <div class="hero-body column has-text-centered">
         <form id="login-form-box" class="login box is-1">
@@ -215,7 +249,7 @@
                     </div>
                 </div>
                 <br>
-                <button type="submit" class="button is-block is-fullwidth is-primary is-medium is-rounded" >
+                <button type="submit" id="submit" class="button is-block is-fullwidth is-primary is-medium is-rounded">
                     로그인
                 </button>
                 <br>
@@ -257,9 +291,9 @@
                 </div>
                 <br>
                 <div>
-                <button type="submit" class="button is-block is-fullwidth is-primary is-medium is-rounded">
-                    회원가입
-                </button>
+                    <button type="submit" class="button is-block is-fullwidth is-primary is-medium is-rounded">
+                        회원가입
+                    </button>
                 </div>
                 <br>
                 <nav class="level">
@@ -272,6 +306,10 @@
             </div>
         </form>
     </div>
+
+<!-- 알림 -->
+<div id="alart" class="column is-half is-offset-one-quarter"></div>
+
 </section>
 </body>
 </html>

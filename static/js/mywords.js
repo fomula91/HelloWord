@@ -121,12 +121,14 @@ const filterToggle = () => {
     return dropDown.addClass("is-active");
 };
 
+// 알림 추가시 알림박스 변경
+
 const wordAddClick = () => {
     const word_word = $('#new-word-word').val();
     const word_mean = $('#new-word-mean').val();
 
-    if (word_word === "") return alert("단어를 입력하세요.");
-    if (word_mean === "") return alert("뜻을 입력하세요.");
+    if (word_word === "") return alert_danger("단어를 입력하세요.");
+    if (word_mean === "") return alert_danger("뜻을 입력하세요.");
 
     $.ajax({
         type: "POST",
@@ -204,20 +206,7 @@ const wordEditCancel = (word_id) => {
     $(`.${word_id}-remove-icon`).show();
 };
 
-const wordRemoveClick = (word_id) => {
-    if (confirm("단어를 삭제하시겠습니까?")) {
-        $.ajax({
-            type: "DELETE",
-            url: `/api/words/${word_id}`,
-            success: (res) => {
-                const {ok, message} = res;
-                if (!ok) return alert(message);
-                alert("삭제되었습니다.");
-                return location.reload();
-            }
-        });
-    }
-};
+
 
 const wordSaveClick = (word_id) => {
     const word_word = $(`#${word_id}-word-edit`).val();
@@ -247,3 +236,51 @@ const wordSaveClick = (word_id) => {
 $(document).ready(() => {
     filterRender();
 });
+
+const wordRemoveClick = (word_id) => {
+    if (confirm("단어를 삭제하시겠습니까?")) {
+        $.ajax({
+            type: "DELETE",
+            url: `/api/words/${word_id}`,
+            success: (res) => {
+                const {ok, message} = res;
+                if (!ok) return alert(message);
+                alert("삭제되었습니다.");
+                return location.reload();
+            }
+        });
+    }
+};
+const alert_danger = (text) => {
+    let temphtml =
+        `<div id="alart-content" class="notification is-danger is-light" style="text-align: center;">
+                        ${text}
+                </div>`
+    $('#alart').append(temphtml)
+
+    setTimeout(function () {
+        $('#alart-content').remove()
+    }, 1000);
+
+
+
+
+}
+
+/* 알림 confirm 박스 미구현
+const wordRemovetest = (word_id) => {
+    alert_confirm(word_id)
+}
+const alert_confirm = (text) => {
+    let temphtml =
+        `<div id="alart-content" class="notification is-danger is-light" style="text-align: center;">
+                        ${text}
+    <div><input class="button is-danger" type="submit" value="예">
+         <input class="button" type="reset" value="아니오"></div>
+                </div>`
+    $('#alart').append(temphtml)
+
+
+
+}
+*/
