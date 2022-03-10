@@ -119,7 +119,7 @@
     <li>
   <details>
     <summary>
-      <b>1일차 : 2022.03.07(월)</b>
+      <b>1일차 : 03.07(월)</b>
     </summary>
     <div markdown="1">
       <ul>
