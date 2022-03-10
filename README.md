@@ -13,7 +13,7 @@
 - 1일차 - 03.07(월) : 프로젝트 주제 선정, 템플릿 구성, 기초 설계
 - 2일차 - 03.08(화) : 설계 확정, 역할 분담, 템플릿 및 기능 구현
 - 3일차 - 03.09(수) : 전체 기능/디자인 구현 및 검토
-- 4일차 - 03.10(목) : 서버 배포 후 코드 리뷰 및 리팩토링
+- 4일차 - 03.10(목) : 서버 배포 후 영상 촬영, 코드 리뷰 및 리팩토링
 
 ## Role
          
@@ -83,14 +83,3 @@ HOST = ${Mongo DB URI}
 KEY = ${Secret Key}
 ```
 
-#### Issues #1
-
-pymongo 설치 후 bson과의 충돌 이슈 발생(파이썬 3.7 이상인 경우 bson 기능을 지원하는데, 이때 pymongo의 bson과 충돌 발생)
-
-> bson과 pymongo를 지운 후 다시 pymongo를 설치하여 해결
-
-```
-$ pip uninstall bson
-$ pip uninstall pymongo
-$ pip install pymongo
-```
