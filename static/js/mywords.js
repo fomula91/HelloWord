@@ -15,7 +15,8 @@ const wordsRender = (words) => {
         const starClickEvent = `wordStarClick('${_id}')`;
         const doneClickEvent = `wordDoneClick('${_id}')`;
         const editClickEvent = `wordEditClick('${_id}')`;
-        const removeClickEvent = `wordRemoveClick('${_id}')`;
+        //wordRemoveClick 에서 wrodRemoveAlert 함수변경
+        const removeClickEvent = `wordRemoveAlert('${_id}')`;
         const saveClickEvent = `wordSaveClick('${_id}');`;
         const cancelClickEvent = `wordEditCancel('${_id}')`;
 
@@ -237,6 +238,7 @@ $(document).ready(() => {
     filterRender();
 });
 
+/**
 const wordRemoveClick = (word_id) => {
     if (confirm("단어를 삭제하시겠습니까?")) {
         $.ajax({
@@ -251,6 +253,78 @@ const wordRemoveClick = (word_id) => {
         });
     }
 };
+ **/
+
+
+//단어 삭제 경고창 (승인, 비승인)
+const wordRemoveAlert = (word_id) => {
+    //word_id => 해당 유저의 단어 고유의 번호
+    let isAlert = document.getElementById("alart-content")
+    let bool = isAlert ? null : !null
+    console.log(bool)
+    if(bool){
+        let temphtml =
+        `<div id="alart-content" class="notification is-danger is-light" style="text-align: center;">
+                       "단어를 삭제하시겠습니까?"
+                <div>
+                    <button class="button is-danger" onclick="getOnclickEvent('${word_id}',true)">예</button>
+                    <button class="button" onclick="getOnclickEvent('${word_id}', false)">아니오</button>
+                </div>
+         </div>`
+    $('#alart').append(temphtml)
+    }
+
+
+}
+
+
+const getOnclickEvent = (word_id, bool) => {
+
+
+    switch (bool){
+        case true:
+            $.ajax({
+        type: "DELETE",
+        url: `/api/words/${word_id}`,
+        success: (res) => {
+            const {ok, message} = res;
+            if (!ok) return alert(message);
+            alert_accpt("삭제되었습니다.");
+            return
+        }
+    })
+         $('#alart-content').remove()
+            setTimeout(function () {
+            location.reload();
+        }, 1000);
+
+            break;
+
+        case false:
+            $('#alart-content').remove()
+            break;
+    }
+
+}
+
+
+
+//알림 푸른색
+const alert_accpt = (text) => {
+        let temphtml =
+            `<div id="alart-content" class="notification is-link is-light" style="text-align: center;">
+                        ${text}
+             </div>`
+        $('#alart').append(temphtml)
+
+        setTimeout(function () {
+            $('#alart-content').remove()
+        }, 5000);
+
+
+    }
+
+// 알림 경고(붉은색)
 const alert_danger = (text) => {
     let temphtml =
         `<div id="alart-content" class="notification is-danger is-light" style="text-align: center;">
@@ -261,26 +335,4 @@ const alert_danger = (text) => {
     setTimeout(function () {
         $('#alart-content').remove()
     }, 1000);
-
-
-
-
 }
-
-/* 알림 confirm 박스 미구현
-const wordRemovetest = (word_id) => {
-    alert_confirm(word_id)
-}
-const alert_confirm = (text) => {
-    let temphtml =
-        `<div id="alart-content" class="notification is-danger is-light" style="text-align: center;">
-                        ${text}
-    <div><input class="button is-danger" type="submit" value="예">
-         <input class="button" type="reset" value="아니오"></div>
-                </div>`
-    $('#alart').append(temphtml)
-
-
-
-}
-*/
