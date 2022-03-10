@@ -3,9 +3,11 @@ from models.auth import Auth
 from models.users import Users
 from models.words import Words
 
+# 유저 API 요청 블루프린트 객체 등록
 users_api = Blueprint('users_api', __name__, url_prefix='/api')
 
 
+# 로그인 요청
 @users_api.route('/login', methods=['POST'])
 def login():
     user_id = request.form['user_id']
@@ -16,6 +18,7 @@ def login():
     return jsonify({"ok": ok, "token": token, "message": message})
 
 
+# 회원가입 요청
 @users_api.route('/signup', methods=['POST'])
 def sign_up():
     user_id = request.form['user_id']

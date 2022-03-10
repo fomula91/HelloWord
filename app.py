@@ -1,7 +1,7 @@
 from flask import Flask
-from routes.pages import pages
-from routes.api.users import users_api
-from routes.api.words import words_api
+from views.pages import pages
+from views.api.users import users_api
+from views.api.words import words_api
 
 app = Flask(__name__)
 

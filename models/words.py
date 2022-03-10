@@ -69,7 +69,8 @@ class Words:
             doc["word_star"] = True if value in ["true"] else False
 
         try:
-            collection.update_one({"user_id": user_id, "_id": ObjectId(word_id)}, {"$set": dict(doc)})
+            collection.update_one(
+                {"user_id": user_id, "_id": ObjectId(word_id)}, {"$set": dict(doc)})
             return [True, '수정되었습니다.']
         except Exception as e:
             print("Words.update :", e)
@@ -79,7 +80,8 @@ class Words:
     @staticmethod
     def delete(user_id: str, word_id: types.StringObjectId) -> [types.BooleanOk, types.StringMessage]:
         try:
-            collection.delete_one({"user_id": user_id, "_id": ObjectId(word_id)})
+            collection.delete_one(
+                {"user_id": user_id, "_id": ObjectId(word_id)})
             return [True, '수정되었습니다.']
         except Exception as e:
             print("Words.delete :", e)
@@ -89,10 +91,14 @@ class Words:
     @staticmethod
     def dummy(user_id: str) -> [types.BooleanOk, types.StringMessage]:
         default_words = [
-            {"word_word": "create", "word_mean": "생성하다, 창조하다", "word_star": True, "word_done": True},
-            {"word_word": "read", "word_mean": "읽다", "word_star": True, "word_done": True},
-            {"word_word": "update", "word_mean": "수정하다, 변경하다", "word_star": True, "word_done": True},
-            {"word_word": "delete", "word_mean": "삭제하다, 제거하다", "word_star": True, "word_done": True},
+            {"word_word": "create", "word_mean": "생성하다, 창조하다",
+                "word_star": True, "word_done": True},
+            {"word_word": "read", "word_mean": "읽다",
+                "word_star": True, "word_done": True},
+            {"word_word": "update", "word_mean": "수정하다, 변경하다",
+                "word_star": True, "word_done": True},
+            {"word_word": "delete", "word_mean": "삭제하다, 제거하다",
+                "word_star": True, "word_done": True},
         ]
 
         for (i, word) in enumerate(default_words):

@@ -1,8 +1,9 @@
 from flask import Blueprint, request, redirect, url_for, render_template
 from models.auth import Auth
 
-# 템플릿 페이지 라우터 객체 등록
-pages = Blueprint('pages', __name__, url_prefix='/', template_folder="templates" )
+# 템플릿 페이지 블루 프린트 객체 생성
+pages = Blueprint('pages', __name__, url_prefix='/',
+                  template_folder="templates")
 
 
 # 홈 화면
