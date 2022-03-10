@@ -55,7 +55,7 @@
   </li>
 </ul>
 
-## 4. Role
+## 3. Role
 
 <ul>
   <li>
@@ -66,7 +66,6 @@
       <div markdown="1">
         <ul>
           <li>단어 조회 페이지 구현</li>
-          <li>전체 기능 검토 및 통합</li>
           <li>전체 기능 검토 및 통합</li>
           <li>Repo 관리, 리팩토링</li>
         </ul>
@@ -114,7 +113,7 @@
   </li>
 </ul>
 
-## 5. Log
+## 4. Log
 
 <ul>
     <li>
