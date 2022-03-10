@@ -11,7 +11,7 @@ const wordsRender = (words) => {
     const wordsBox = $('#words-box');
     wordsBox.empty();
     words.forEach((word, i) => {
-        const {_id, word_star, word_done, word_word, word_mean } = word;
+        const { _id, word_star, word_done, word_word, word_mean } = word;
         const starClickEvent = `wordStarClick('${_id}')`;
         const doneClickEvent = `wordDoneClick('${_id}')`;
         const editClickEvent = `wordEditClick('${_id}')`;
@@ -90,7 +90,7 @@ const filterRender = (index) => {
                           onclick="${filterClickEvent}">
                             ${state.item}
                        </a>`);
-        return {...state, isActive: i === index};
+        return { ...state, isActive: i === index };
     });
     const item = index !== undefined ? filterState[index].item : '필터';
     const query = index ? filterState[index].query : '';
@@ -105,7 +105,7 @@ const getWords = (query) => {
         type: "GET",
         url: `/api/words${query}`,
         success: (res) => {
-            const {ok, words, message} = res;
+            const { ok, words, message } = res;
 
             if (!ok) return alert(message);
             return wordsRender(words);
@@ -131,9 +131,9 @@ const wordAddClick = () => {
     $.ajax({
         type: "POST",
         url: "/api/words/new",
-        data: {word_word, word_mean},
+        data: { word_word, word_mean },
         success: (res) => {
-            const {ok, message} = res;
+            const { ok, message } = res;
             if (!ok) return alert(message);
             return location.reload();
         }
@@ -141,7 +141,6 @@ const wordAddClick = () => {
 };
 
 const wordStarClick = (word_id) => {
-
     // JavaScript에 저장되어 있는 데이터에서 word_id에 해당하는 단어 검색]
     const word = rows.find(word => word._id === word_id);
     const { word_star } = word;
@@ -151,7 +150,7 @@ const wordStarClick = (word_id) => {
         url: `/api/words/${word_id}`,
         data: { word_star: updated },
         success: (res) => {
-            const {ok, message} = res;
+            const { ok, message } = res;
             if (!ok) return alert(message);
 
             rows[rows.indexOf(word)] = { ...word, word_star: updated }
@@ -164,7 +163,6 @@ const wordStarClick = (word_id) => {
 };
 
 const wordDoneClick = (word_id) => {
-
     // JavaScript에 저장되어 있는 데이터에서 word_id에 해당하는 단어 검색
     const word = rows.find(word => word._id === word_id);
     const { word_done } = word;
@@ -174,7 +172,7 @@ const wordDoneClick = (word_id) => {
         url: `/api/words/${word_id}`,
         data: { word_done: updated },
         success: (res) => {
-            const {ok, message} = res;
+            const { ok, message } = res;
             if (!ok) return alert(message);
 
             rows[rows.indexOf(word)] = { ...word, word_done: updated }
@@ -205,18 +203,19 @@ const wordEditCancel = (word_id) => {
 };
 
 const wordRemoveClick = (word_id) => {
-    if (confirm("단어를 삭제하시겠습니까?")) {
+    const confirm = confirm("단어를 삭제하시겠습니까?");
+    if (confirm) {
         $.ajax({
             type: "DELETE",
             url: `/api/words/${word_id}`,
             success: (res) => {
-                const {ok, message} = res;
+                const { ok, message } = res;
                 if (!ok) return alert(message);
                 alert("삭제되었습니다.");
                 return location.reload();
             }
         });
-    }
+    };
 };
 
 const wordSaveClick = (word_id) => {
@@ -234,9 +233,9 @@ const wordSaveClick = (word_id) => {
     $.ajax({
         type: "PUT",
         url: `/api/words/${word_id}`,
-        data: {word_word, word_mean},
+        data: { word_word, word_mean },
         success: (res) => {
-            const {ok, message} = res;
+            const { ok, message } = res;
             if (!ok) return alert(message);
             alert("저장되었습니다");
             return location.reload();

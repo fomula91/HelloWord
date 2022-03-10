@@ -35,14 +35,16 @@
     <a class="navbar-item" href="https://hanghae99.spartacodingclub.kr/?utm_source=google_sa&utm_medium=paid&utm_campaign=15140556153&utm_content=129341608796&utm_term=%ED%95%AD%ED%95%B499_558314615957&gclid=Cj0KCQiAmpyRBhC-ARIsABs2EArVF6Ree0Z3qIrXLE3jeEaeuP4Dq5U-joTn14vqtoSuuI_hKMO_CowaAjZ8EALw_wcB">
       <img src="https://hanghae99.spartacodingclub.kr/static/images/logo.svg" width="95" height="28">
     </a>
+
     <!-- 버거 메뉴 (max-width: 1023px ) -->
+    <div>최원영</div>
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="buggerMenuClick()">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
-  <div id="navbarBasicExample" class="navbar-menu">
+  <div class="navbar-menu">
     <div class="navbar-start">
       <a class="navbar-item" href="/">
         홈
@@ -77,14 +79,22 @@
         </div>
       </div>
     </div>
+    
+    <!-- 현재 접속한 사용자 정보 -->
+    <div class="navbar-item">
+      {% if payload %}
+        <b>{{ payload["user_name"] }}({{ payload["user_id"] }})</b>님 반갑습니다!
+      {% endif %}
+    </div >
+
     <div class="navbar-end">
 
-      <!-- 현재 접속한 사용자 정보 -->
+      <!-- 현재 접속한 사용자 정보
       <div class="navbar-item">
         {% if payload %}
           <b>{{ payload["user_name"] }}({{ payload["user_id"] }})</b>님 반갑습니다!
         {% endif %}
-      </div>
+      </div> -->
 
       <!-- 로그아웃 버튼 -->
       <div class="navbar-item">
