@@ -18,7 +18,7 @@ const AlertDanger = (text, isReload) => {
 
 const AlertSuccess = async (text, isReload) => {
     $('#alart').append(`
-        <div id="alart-content" class="notification is-success is-light" style="text-align: center;">
+        <div id="alart-content" class="notification is-info is-light" style="text-align: center;">
             ${text}
         </div>`);
     alertRemove(isReload);

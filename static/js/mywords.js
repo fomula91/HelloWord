@@ -135,7 +135,7 @@ const wordAddClick = () => {
         success: (res) => {
             const { ok, message } = res;
             if (!ok) return AlertDanger(message);
-            return location.reload();
+            return AlertSuccess("등록되었습니다.", true);
         }
     });
 };
@@ -236,7 +236,7 @@ const wordSaveClick = (word_id) => {
         success: (res) => {
             const { ok, message } = res;
             if (!ok) return AlertDanger(message);
-            return AlertSuccess("수정되었습니다.", true);
+            return AlertSuccess("저장되었습니다.", true);
         }
     });
 };
